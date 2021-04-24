@@ -1,0 +1,43 @@
+.circle-button {
+	display: inline-block;
+	background-color: $white;
+	border: 1px solid $primary;
+	border-radius: 50%;
+	width: 54px;
+	height: 54px;
+
+	span {
+		display: block;
+		width: 17px;
+		height: 2px;
+		background-color: $primary;
+		position: relative;
+		left: 18px;
+	}
+
+	.line-1 {
+		top: 25px;
+	}
+
+	.line-2 {
+		top: 23px;
+		transform: rotate(90deg);
+	}
+
+	&:hover {
+		background-color: $primary;
+
+		span {
+			background-color: $white;
+		}
+	}
+
+	&:active {
+		background-color: $grey;
+		border: 1px solid $grey;
+
+		span {
+			background-color: $white;
+		}
+	}
+}

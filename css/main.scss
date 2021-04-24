@@ -1,20 +1,23 @@
 // Abstracts
-@import "./abstracts/media-queries";
-@import "./abstracts/variables";
-@import "./abstracts/common";
+@import './abstracts/media-queries';
+@import './abstracts/variables';
+@import './abstracts/common';
 
 * {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    text-decoration: none;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
 }
 
 html {
-    scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 //Layout
-@import "./layout/header";
+@import './layout/header';
 // @import "./layout/content";
 // @import "./layout/footer";
+
+// Components
+@import './buttons/buttons';
