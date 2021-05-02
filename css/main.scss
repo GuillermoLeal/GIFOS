@@ -1,23 +1,17 @@
 // Abstracts
-@import './abstracts/media-queries';
-@import './abstracts/variables';
 @import './abstracts/common';
+@import './abstracts/media-queries';
+@import './abstracts/mixins';
+@import './abstracts/variables';
 
-* {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	text-decoration: none;
-}
-
-html {
-	scroll-behavior: smooth;
-}
+//base
+@import './base/reset';
 
 //Layout
+@import './layout/content';
 @import './layout/header';
-// @import "./layout/content";
-// @import "./layout/footer";
+@import './layout/footer';
 
 // Components
-@import './buttons/buttons';
+@import './components/buttons';
+@import './components/titles';

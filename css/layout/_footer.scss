@@ -1,0 +1,22 @@
+footer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10%;
+
+	p {
+		font-family: $font-primary;
+		color: var(--color__text);
+	}
+}
+
+.social-icons {
+	padding: 5%;
+	i {
+		font-size: 20px;
+		margin-left: 10px;
+		margin-right: 10px;
+		color: $grey;
+	}
+}

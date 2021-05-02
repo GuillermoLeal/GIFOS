@@ -1,17 +1,46 @@
-// Colores
-$primary: #572ee5;
-$primary-transparent: rgba(87, 46, 229, 0.9);
-$secundary: #50e3c2;
-$black: #060a24;
-$grey: #9cafc3;
+// Colors light
+$color__bg: #ffffff;
+$color__bg__grey: #f3f5f8;
+$color__primary: #572ee5;
+$color__secondary: #50e3c2;
+$color__text: #060a24;
+$color__primary__transparent: rgba(87, 46, 229, 0.9);
+
+// Colors dark
+$color__bg--dark: #37383c;
+$color__bg__grey--dark: #222326;
+$color__primary--dark: #ffffff;
+$color__primary__transparent--dark: #1b1b1b;
+$color__text--dark: #ffffff;
+
+// Colors active
+$grey: #cdd6e0;
 $white: #ffffff;
+
+// Tema principal
+.theme {
+	--color__bg: #{$color__bg};
+	--color__bg__grey: #{$color__bg__grey};
+	--color__primary: #{$color__primary};
+	--color__text: #{$color__text};
+	--color__primary__transparent: #{$color__primary__transparent};
+}
+// Tema oscuro
+.theme--dark {
+	--color__bg: #{$color__bg--dark};
+	--color__bg__grey: #{$color__bg__grey--dark};
+	--color__primary: #{$color__primary--dark};
+	--color__text: #{$color__text--dark};
+	--color__primary__transparent: #{$color__primary__transparent--dark};
+}
 
 // Tipografias
 $font-primary: 'Roboto', sans-serif;
 $font-secundary: 'Montserrat', sans-serif;
 $font-size-xs: 1rem;
-$font-size-s: 1.1rem;
-$font-size-n: 1.5rem;
-$font-size-m: 2.3rem;
+$font-size-s: 1.3rem;
+$font-size-ns: 1.5rem;
+$font-size-n: 1.8rem;
+$font-size-m: 2.5rem;
 $font-size-l: 3rem;
 $font-size-xl: 3.8rem;

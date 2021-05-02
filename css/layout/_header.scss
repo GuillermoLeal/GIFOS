@@ -2,18 +2,18 @@
 	position: relative;
 	z-index: 2;
 	font-size: $font-size-xs;
-	padding: 20px 10%;
-	border-top: 5px solid $primary;
+	padding: 5px 10%;
+	border-top: 6px solid var(--color__primary__transparent);
 
 	@include media(sm) {
 		padding: 20px;
 	}
 
 	img {
-		width: 60px;
+		width: 80px;
 
 		@include media(sm) {
-			width: 50px;
+			width: 60px;
 		}
 	}
 }
@@ -48,12 +48,12 @@
 	@include media(sm) {
 		font-size: $font-size-xs;
 		position: absolute;
-		top: 88px;
+		top: 100px;
 		left: 0;
 		display: flex;
 		flex-direction: column;
 		justify-content: start;
-		background-color: $primary-transparent;
+		background-color: var(--color__primary__transparent);
 		box-sizing: border-box;
 		width: 100%;
 		height: 100vh;
@@ -95,20 +95,20 @@
 .links-nav {
 	font-family: $font-secundary;
 	font-weight: bold;
+	color: var(--color__primary);
 
 	@include media(sm) {
 		color: $white;
 	}
 
 	&:after {
-		// background: none repeat scroll 0 0 transparent;
 		bottom: 0;
 		content: '';
 		display: block;
 		height: 2px;
 		left: 50%;
 		position: relative;
-		background: $secundary;
+		background: $color__secondary;
 		transition: width 0.3s ease 0s, left 0.3s ease 0s;
 		width: 0;
 	}
@@ -131,7 +131,7 @@
 		width: 18px;
 		height: 2px;
 		margin-bottom: 4px;
-		background: $primary;
+		background: var(--color__primary);
 		transform-origin: 3px 0px;
 		transition: transform 0.5s ease, opacity 0.55s ease;
 	}

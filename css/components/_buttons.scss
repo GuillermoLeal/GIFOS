@@ -1,7 +1,7 @@
 .circle-button {
 	display: inline-block;
-	background-color: $white;
-	border: 1px solid $primary;
+	background-color: var(--color__bg);
+	border: 1px solid var(--color__primary);
 	border-radius: 50%;
 	width: 54px;
 	height: 54px;
@@ -10,7 +10,7 @@
 		display: block;
 		width: 17px;
 		height: 2px;
-		background-color: $primary;
+		background-color: var(--color__primary);
 		position: relative;
 		left: 18px;
 	}
@@ -25,10 +25,10 @@
 	}
 
 	&:hover {
-		background-color: $primary;
+		background-color: var(--color__primary);
 
 		span {
-			background-color: $white;
+			background-color: var(--color__bg);
 		}
 	}
 
@@ -37,7 +37,7 @@
 		border: 1px solid $grey;
 
 		span {
-			background-color: $white;
+			background-color: var(--color__bg);
 		}
 	}
 }

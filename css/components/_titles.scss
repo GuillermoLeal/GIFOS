@@ -1,0 +1,30 @@
+.title {
+	@include title;
+}
+
+.title-small {
+	padding: 0%;
+	font-size: $font-size-s;
+}
+
+.title-outlined {
+	padding: 0% 8%;
+	font-size: $font-size-xs;
+	line-height: 25px;
+	font-weight: 400;
+}
+
+.color-secundary {
+	@include title;
+	padding: 0;
+	color: $color__secondary;
+}
+
+.title-ns {
+	font-size: $font-size-ns;
+	padding: 0;
+}
+
+.color-black {
+	color: var(--color__text);
+}
