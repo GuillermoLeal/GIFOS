@@ -6,7 +6,7 @@
 	border-top: 6px solid var(--color__primary__transparent);
 
 	@include media(sm) {
-		padding: 20px;
+		padding: 20px 30px;
 	}
 
 	img {
@@ -27,14 +27,14 @@
 	/*movimiento a cruz*/
 	&:checked ~ label span:nth-child(1) {
 		opacity: 1;
-		transform: rotate(45deg) translate(1px, 0px);
+		transform: rotate(45deg) translate(1px, 1px);
 	}
 	&:checked ~ label span:nth-child(2) {
 		opacity: 0;
 		transform: rotate(0deg) scale(0.2, 0.2);
 	}
 	&:checked ~ label span:nth-child(3) {
-		transform: rotate(-45deg) translate(0px, 1px);
+		transform: rotate(-45deg) translate(0px, 0px);
 	}
 }
 
@@ -128,9 +128,9 @@
 
 	@include media(sm) {
 		display: block;
-		width: 18px;
-		height: 2px;
-		margin-bottom: 4px;
+		width: 28px;
+		height: 3px;
+		margin-bottom: 7px;
 		background: var(--color__primary);
 		transform-origin: 3px 0px;
 		transition: transform 0.5s ease, opacity 0.55s ease;

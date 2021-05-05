@@ -24,14 +24,14 @@ $white: #ffffff;
 	--color__primary: #{$color__primary};
 	--color__text: #{$color__text};
 	--color__primary__transparent: #{$color__primary__transparent};
-}
-// Tema oscuro
-.theme--dark {
-	--color__bg: #{$color__bg--dark};
-	--color__bg__grey: #{$color__bg__grey--dark};
-	--color__primary: #{$color__primary--dark};
-	--color__text: #{$color__text--dark};
-	--color__primary__transparent: #{$color__primary__transparent--dark};
+	// Tema oscuro
+	&--dark {
+		--color__bg: #{$color__bg--dark};
+		--color__bg__grey: #{$color__bg__grey--dark};
+		--color__primary: #{$color__primary--dark};
+		--color__text: #{$color__text--dark};
+		--color__primary__transparent: #{$color__primary__transparent--dark};
+	}
 }
 
 // Tipografias
