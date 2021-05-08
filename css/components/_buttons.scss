@@ -41,3 +41,11 @@
 		}
 	}
 }
+
+.arrow-left {
+	@include arrow;
+}
+
+.arrow-right {
+	@include arrow;
+}

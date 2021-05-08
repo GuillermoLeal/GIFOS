@@ -1,9 +1,16 @@
 footer {
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	padding: 3% 5%;
+	border-bottom: 5px solid var(--color__primary);
+	flex-direction: row;
+	justify-content: space-between;
 	align-items: center;
-	padding: 10%;
+
+	@include media(sm) {
+		flex-direction: column;
+		justify-content: center;
+		padding: 10%;
+	}
 
 	p {
 		font-family: $font-primary;
@@ -11,12 +18,31 @@ footer {
 	}
 }
 
+.content-social {
+	width: 250px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	@include media(sm) {
+		display: none;
+	}
+}
+
 .social-icons {
 	padding: 5%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
 	i {
 		font-size: 20px;
 		margin-left: 10px;
 		margin-right: 10px;
 		color: $grey;
+
+		&:hover {
+			color: var(--color__primary);
+		}
 	}
 }
