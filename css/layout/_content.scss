@@ -10,13 +10,36 @@ body {
 	}
 }
 
+.line {
+	background-color: $grey;
+	width: 30%;
+	height: 1px;
+	margin-bottom: 60px;
+}
+
 // TODO: Page Main ************************************
 #svg-GIFOS {
 	fill: var(--color__primary);
 }
 
 .section-header {
-	padding: 10%;
+	padding: 8%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.header-search {
+	padding: 5%;
+}
+
+.section-search-footer {
+	padding: 8%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .gifos-color {
@@ -30,9 +53,8 @@ body {
 }
 
 #section-search {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	display: grid;
+	grid-template-columns: 1fr;
 }
 
 .section-search {
@@ -52,10 +74,6 @@ body {
 	img {
 		width: 70%;
 	}
-}
-
-.section-search-footer {
-	padding: 10%;
 }
 
 .search-input {
@@ -84,12 +102,17 @@ body {
 		outline: none;
 		border-radius: 30px;
 		font-size: $font-size-s;
+
+		&::placeholder {
+			color: $grey;
+		}
 	}
 
 	.autocom-box {
 		display: block;
-		margin: 0% 5% 6% 5%;
+		margin: 0% 5% 4% 5%;
 		border-top: 1px solid $grey;
+		cursor: pointer;
 
 		@include media(md) {
 			display: none;
@@ -105,6 +128,33 @@ body {
 				margin-right: 10px;
 			}
 		}
+	}
+}
+
+.gifs-results {
+	padding: 0% 10%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	gap: 25px;
+
+	@include media(md) {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	@include media(sm) {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+#gifs-no-data {
+	padding: 4% 8% 8% 8%;
+
+	img {
+		margin-bottom: 30px;
+	}
+
+	p {
+		color: $color__secondary;
 	}
 }
 
@@ -159,7 +209,6 @@ body {
 		li {
 			margin: 0;
 			width: 30%;
-			height: 187px;
 			background-color: grey;
 			display: inline-block;
 

@@ -1,10 +1,11 @@
-.circle-button {
+.btn-circle {
 	display: inline-block;
 	background-color: var(--color__bg);
 	border: 1px solid var(--color__primary);
 	border-radius: 50%;
 	width: 54px;
 	height: 54px;
+	cursor: pointer;
 
 	span {
 		display: block;
@@ -42,10 +43,27 @@
 	}
 }
 
-.arrow-left {
+.btn-see-more {
+	cursor: pointer;
+	padding: 12px 20px;
+	background-color: var(--color__bg);
+	color: var(--color__primary);
+	border: 1px solid var(--color__primary);
+	border-radius: 30px;
+	font-family: $font-secundary;
+	font-weight: bold;
+	font-size: $font-size-xs;
+
+	&:hover {
+		background-color: var(--color__primary);
+		color: var(--color__bg);
+	}
+}
+
+.btn-arrow-left {
 	@include arrow;
 }
 
-.arrow-right {
+.btn-arrow-right {
 	@include arrow;
 }

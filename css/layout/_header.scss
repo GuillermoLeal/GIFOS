@@ -39,10 +39,14 @@
 }
 
 #menu {
-	font-size: $font-size-s;
+	font-size: $font-size-xs;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	@include media(sm) {
+		font-size: $font-size-s;
+	}
 
 	//? Tamaño 767
 	@include media(sm) {
