@@ -1,6 +1,14 @@
-import { btn_noc_mode, getNocMode, setNocMode } from './modules.js';
+//TODO: VARIABLES ****/
+const btn_noc_mode = document.querySelector('#noc-mode');
 
-//**** FUNCTIONS ****/
+//TODO: FUNCTIONS ****/
+const getNocMode = () => {
+	return localStorage.getItem('nocMode');
+};
+const setNocMode = (value) => {
+	localStorage.setItem('nocMode', value.toString());
+};
+
 const validateNocMode = () => {
 	const bodyClassList = document.body.classList;
 	if (getNocMode() == 'true') {
@@ -12,7 +20,7 @@ const validateNocMode = () => {
 	}
 };
 
-//**** EVENTS ****/
+//TODO: EVENTS ****/
 btn_noc_mode.addEventListener('click', () => {
 	const bodyClassList = document.body.classList;
 
