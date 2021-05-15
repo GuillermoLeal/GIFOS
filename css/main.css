@@ -92,6 +92,11 @@ body {
   margin-bottom: 60px;
 }
 
+.section-img {
+  width: 2vw;
+  min-width: 30px;
+}
+
 #svg-GIFOS {
   fill: var(--color__primary);
 }
@@ -581,7 +586,14 @@ body {
           transform-origin: 0% 100%;
 }
 
+.active {
+  color: #9cafc3;
+}
+
 footer {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -615,6 +627,11 @@ footer {
 footer p {
   font-family: "Roboto", sans-serif;
   color: var(--color__text);
+}
+
+.footer-bottom {
+  position: fixed;
+  bottom: 0;
 }
 
 .content-social {
