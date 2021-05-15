@@ -5,8 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>GIFOS</title>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet" />
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.gstatic.com" />
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
@@ -89,15 +89,12 @@
 					<div class="section-search">
 						<img src="./assets/content/ilustra_header.svg" alt="ilustra.svg..." />
 						<div class="search-input">
+							<i id="icon-search-left" class="material-icons" style="display: none">search</i>
 							<input type="search" id="search" placeholder="Busca GIFOS y más" results="5" />
-							<ul id="list-search" class="autocom-box">
-								<li><i class="fa fa-search" aria-hidden="true"></i> hola</li>
-								<li><i class="fa fa-search" aria-hidden="true"></i> hola</li>
-								<li><i class="fa fa-search" aria-hidden="true"></i> hola</li>
-								<li><i class="fa fa-search" aria-hidden="true"></i> hola</li>
-								<li><i class="fa fa-search" aria-hidden="true"></i> hola</li>
+							<ul id="list-search" class="autocom-box" style="display: none">
+								<!-- LIST AUTOCOMPLETE -->
 							</ul>
-							<i class="fa fa-search icon-sarch" aria-hidden="true"></i>
+							<i id="icon-sarch-right" class="material-icons">search</i>
 						</div>
 					</div>
 				</div>
@@ -107,12 +104,12 @@
 				</div>
 			</section>
 			<!-- ? DATA SEARCH -->
-			<section id="data-search">
+			<section id="data-search" style="display: none">
 				<header class="section-header header-search">
 					<span class="line"></span>
 					<h2 class="title title-ns">MASCOTAS</h2>
 				</header>
-				<div id="gifs-data">
+				<div id="gifs-data" style="display: none">
 					<div class="gifs-results">
 						<div class="gif-container">
 							<div class="gif">
@@ -275,7 +272,7 @@
 						<a href="#" class="btn-see-more">VER MÁS</a>
 					</div>
 				</div>
-				<div id="gifs-no-data" class="d-flex flex-column justify-center align-center">
+				<div id="gifs-no-data" style="display: none" class="d-flex flex-column justify-center align-center">
 					<img src="./assets/content/icon-busqueda-sin-resultado.svg" alt="svg-sin-resultados..." />
 					<p class="title title-small">Intenta con otra búsqueda.</p>
 				</div>
@@ -358,6 +355,7 @@
 
 		<!-- TODO SCRIPTS JS -->
 		<script src="./js/app.js"></script>
-		<script type="module" src="./js/nocturne-mode.js"></script>
+		<script src="./js/nocturne-mode.js"></script>
+		<script type="module" src="./js/search.js"></script>
 	</body>
 </html>

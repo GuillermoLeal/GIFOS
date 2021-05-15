@@ -88,16 +88,8 @@ body {
 	border-radius: 30px;
 	border: 1px solid var(--color__primary);
 
-	.icon-sarch {
-		position: absolute;
-		right: 24px;
-		top: 15px;
-		font-size: 20px;
-		color: var(--color__primary);
-	}
-
 	input {
-		padding: 0% 12%;
+		padding: 0% 14%;
 		font-family: $font-primary;
 		background-color: var(--color__bg);
 		color: var(--color__text);
@@ -111,29 +103,54 @@ body {
 		&::placeholder {
 			color: $grey;
 		}
+
+		@include media(xs) {
+			padding: 0% 18%;
+		}
 	}
 
 	.autocom-box {
 		display: block;
 		margin: 0% 5% 4% 5%;
 		border-top: 1px solid $grey;
-		cursor: pointer;
 
 		@include media(md) {
 			display: none;
 		}
 
 		li {
-			margin-top: 15px;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			cursor: default;
+			margin-top: 10px;
 			font-family: $font-primary;
 			font-size: $font-size-s;
 			color: $grey;
 
 			i {
 				margin-right: 10px;
+				font-size: $font-size-n;
 			}
 		}
 	}
+}
+
+#icon-search-left {
+	position: absolute;
+	top: 14px;
+	left: 20px;
+	font-size: $font-size-n;
+	color: $grey;
+}
+
+#icon-sarch-right {
+	position: absolute;
+	top: 14px;
+	right: 24px;
+	font-size: $font-size-n;
+	color: var(--color__primary);
+	cursor: pointer;
 }
 
 .gifs-results {
