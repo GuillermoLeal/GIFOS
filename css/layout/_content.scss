@@ -175,33 +175,35 @@ body {
 #data-search {
 	display: none;
 
-	&.active-data,
-	&.active-no-data {
-		display: block;
-	}
-
 	#gifs-data {
 		display: none;
 	}
 
 	#gifs-no-data {
 		display: none;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 
 	&.active-data {
+		display: block;
+
 		#gifs-data {
 			display: block;
 		}
 	}
 
 	&.active-no-data {
+		display: block;
+
 		#gifs-no-data {
-			display: block;
+			display: flex;
 		}
 	}
 }
 
-.gifs-results {
+#gifs-results {
 	padding: 0% 10%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;

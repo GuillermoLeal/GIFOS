@@ -6,13 +6,14 @@ const containerSearch = document.querySelector('#search-input');
 const searchInput = document.querySelector('#search');
 const searchList = document.querySelector('#list-search');
 // icons
-const searchIconLeft = document.querySelector('#icon-search-left');
 const searchIconRight = document.querySelector('#icon-sarch-right');
 // sections
-const sectionTrending = document.querySelector('#info-search');
+const sectionInfoSearch = document.querySelector('#info-search');
 const sectionDataSearch = document.querySelector('#data-search');
 const sectionGifDataList = document.querySelector('#gifs-data');
 const sectionGifNoData = document.querySelector('#gifs-no-data');
+const containerGifsSearch = document.querySelector('#gifs-results');
+const titleSearch = document.querySelector('#title-search');
 // data
 const dataSearch = [];
 
@@ -50,14 +51,56 @@ const getDataSearch = (event) => {
 
 		const search = searchInput.value;
 		const offset = dataSearch.length || 0;
+		titleSearch.innerText = search.toUpperCase();
 
 		getApiSearch(search, 12, offset)
 			.then((res) => {
-				console.log(res);
+				const { data } = res;
+				containerGifsSearch.innerHTML = '';
+
+				if (data.length) {
+					data.forEach((item) => {
+						containerGifsSearch.innerHTML += `
+						<div class="gif-container">
+							<img class="gif" src="${item.images.fixed_height.url}"></img>
+							<div class="hover-gif">
+								<div class="gif-actions">
+									<button class="favorites"><i class="material-icons">favorite_border</i></button>
+									<button class="download"><i class="fas fa-download"></i></button>
+									<button class="show"><i class="fas fa-expand-alt"></i></button>
+								</div>
+								<div class="gif-info">
+									<p class="gif-user">${item.username}</p>
+									<p class="gif-title">${item.title}</p>
+								</div>
+							</div>
+						</div>
+						`;
+					});
+				}
+
+				containerSearch.classList.remove('active');
+				toggleIconsSearch();
+				showSectionSearch(data.length ? true : false);
 			})
 			.catch((err) => {
 				console.warn('Error al hacer la petición getApiSearch en la API: ', err);
 			});
+	}
+};
+
+/**
+ * @description Mostrar u ocultar las secciones al hacer una busqueda de gif
+ */
+const showSectionSearch = (validateData) => {
+	if (validateData) {
+		sectionInfoSearch.classList.remove('active');
+		sectionDataSearch.classList.add('active-data');
+		sectionDataSearch.classList.remove('active-no-data');
+	} else {
+		sectionInfoSearch.classList.add('active');
+		sectionDataSearch.classList.add('active-no-data');
+		sectionDataSearch.classList.remove('active-data');
 	}
 };
 
@@ -78,6 +121,9 @@ const toggleIconsSearch = () => {
 const resetSearch = () => {
 	if (searchInput.value) {
 		containerSearch.classList.remove('active');
+		sectionInfoSearch.classList.add('active');
+		sectionDataSearch.classList.remove('active-no-data');
+		sectionDataSearch.classList.remove('active-data');
 		searchInput.value = '';
 		searchList.innerHTML = '';
 		searchIconRight.innerHTML = 'search';
