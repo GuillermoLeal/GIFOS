@@ -186,6 +186,24 @@ body {
   width: 70%;
 }
 
+#icon-search-left {
+  display: none;
+  position: absolute;
+  top: 14px;
+  left: 21px;
+  font-size: 1.8rem;
+  color: #9cafc3;
+}
+
+#icon-sarch-right {
+  position: absolute;
+  top: 14px;
+  right: 21px;
+  font-size: 1.8rem;
+  color: var(--color__primary);
+  cursor: pointer;
+}
+
 .search-input {
   position: relative;
   padding: 2px;
@@ -230,7 +248,7 @@ body {
 }
 
 .search-input .autocom-box {
-  display: block;
+  display: none;
   margin: 0px 20px 15px 20px;
   border-top: 1px solid #9cafc3;
 }
@@ -263,21 +281,44 @@ body {
   font-size: 1.8rem;
 }
 
-#icon-search-left {
-  position: absolute;
-  top: 14px;
-  left: 21px;
-  font-size: 1.8rem;
-  color: #9cafc3;
+.search-input.active #icon-search-left {
+  display: inline-block;
 }
 
-#icon-sarch-right {
-  position: absolute;
-  top: 14px;
-  right: 21px;
-  font-size: 1.8rem;
-  color: var(--color__primary);
-  cursor: pointer;
+.search-input.active .autocom-box {
+  display: block;
+}
+
+#info-search {
+  display: none;
+}
+
+#info-search.active {
+  display: block;
+}
+
+#data-search {
+  display: none;
+}
+
+#data-search.active-data, #data-search.active-no-data {
+  display: block;
+}
+
+#data-search #gifs-data {
+  display: none;
+}
+
+#data-search #gifs-no-data {
+  display: none;
+}
+
+#data-search.active-data #gifs-data {
+  display: block;
+}
+
+#data-search.active-no-data #gifs-no-data {
+  display: block;
 }
 
 .gifs-results {

@@ -2,6 +2,7 @@ import { getApiAutocomplete, getApiSearch } from './api/getDataApi.js';
 
 //? VARIABLES ****************
 // search
+const containerSearch = document.querySelector('#search-input');
 const searchInput = document.querySelector('#search');
 const searchList = document.querySelector('#list-search');
 // icons
@@ -32,9 +33,9 @@ const getDataAutocomplete = () => {
 				data.forEach((item) => {
 					searchList.innerHTML += `<li><i class="material-icons item-list-autocomplete">search</i>${item.name}</li>`;
 				});
-				searchList.setAttribute('style', '');
+				containerSearch.classList.add('active');
 			} else {
-				searchList.setAttribute('style', 'display: none;');
+				containerSearch.classList.remove('active');
 			}
 		})
 		.catch((err) => {
@@ -42,28 +43,31 @@ const getDataAutocomplete = () => {
 		});
 };
 
-const getDataSearch = () => {
-	const search = searchInput.value;
-	const offset = dataSearch.length || 0;
+const getDataSearch = (event) => {
+	// Si se preciona Enter en el buscador hace la petición...
+	if (event.keyCode === 13) {
+		event.preventDefault();
 
-	getApiSearch(search, 12, offset)
-		.then((res) => {
-			console.log(res);
-		})
-		.catch((err) => {
-			console.warn('Error al hacer la petición getApiSearch en la API: ', err);
-		});
+		const search = searchInput.value;
+		const offset = dataSearch.length || 0;
+
+		getApiSearch(search, 12, offset)
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((err) => {
+				console.warn('Error al hacer la petición getApiSearch en la API: ', err);
+			});
+	}
 };
 
 /**
- * @description Cambiar los iconos del buscador
+ * @description Cambiar los iconos del buscador entre lupa y X
  */
 const toggleIconsSearch = () => {
 	if (searchInput.value) {
-		searchIconLeft.setAttribute('style', '');
 		searchIconRight.innerHTML = 'close';
 	} else {
-		searchIconLeft.setAttribute('style', 'display: none;');
 		searchIconRight.innerHTML = 'search';
 	}
 };
@@ -73,14 +77,14 @@ const toggleIconsSearch = () => {
  */
 const resetSearch = () => {
 	if (searchInput.value) {
+		containerSearch.classList.remove('active');
 		searchInput.value = '';
-		searchIconLeft.setAttribute('style', 'display: none;');
-		searchList.setAttribute('style', 'display: none;');
-		searchIconRight.innerHTML = 'search';
 		searchList.innerHTML = '';
+		searchIconRight.innerHTML = 'search';
 	}
 };
 
 //? EVENTS *******************
+searchInput.addEventListener('keyup', (event) => getDataSearch(event));
 searchInput.addEventListener('input', getDataAutocomplete);
 searchIconRight.addEventListener('click', resetSearch);

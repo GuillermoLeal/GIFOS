@@ -81,6 +81,24 @@ body {
 	}
 }
 
+#icon-search-left {
+	display: none;
+	position: absolute;
+	top: 14px;
+	left: 21px;
+	font-size: $font-size-n;
+	color: $grey;
+}
+
+#icon-sarch-right {
+	position: absolute;
+	top: 14px;
+	right: 21px;
+	font-size: $font-size-n;
+	color: var(--color__primary);
+	cursor: pointer;
+}
+
 .search-input {
 	position: relative;
 	padding: 2px;
@@ -110,7 +128,7 @@ body {
 	}
 
 	.autocom-box {
-		display: block;
+		display: none;
 		margin: 0px 20px 15px 20px;
 		border-top: 1px solid $grey;
 
@@ -134,23 +152,53 @@ body {
 			}
 		}
 	}
+
+	&.active {
+		#icon-search-left {
+			display: inline-block;
+		}
+
+		.autocom-box {
+			display: block;
+		}
+	}
 }
 
-#icon-search-left {
-	position: absolute;
-	top: 14px;
-	left: 21px;
-	font-size: $font-size-n;
-	color: $grey;
+#info-search {
+	display: none;
+
+	&.active {
+		display: block;
+	}
 }
 
-#icon-sarch-right {
-	position: absolute;
-	top: 14px;
-	right: 21px;
-	font-size: $font-size-n;
-	color: var(--color__primary);
-	cursor: pointer;
+#data-search {
+	display: none;
+
+	&.active-data,
+	&.active-no-data {
+		display: block;
+	}
+
+	#gifs-data {
+		display: none;
+	}
+
+	#gifs-no-data {
+		display: none;
+	}
+
+	&.active-data {
+		#gifs-data {
+			display: block;
+		}
+	}
+
+	&.active-no-data {
+		#gifs-no-data {
+			display: block;
+		}
+	}
 }
 
 .gifs-results {
