@@ -195,7 +195,7 @@ body {
 }
 
 .search-input input {
-  padding: 0% 14%;
+  padding: 0px 60px;
   font-family: "Roboto", sans-serif;
   background-color: var(--color__bg);
   color: var(--color__text);
@@ -231,7 +231,7 @@ body {
 
 .search-input .autocom-box {
   display: block;
-  margin: 0% 5% 4% 5%;
+  margin: 0px 20px 15px 20px;
   border-top: 1px solid #9cafc3;
 }
 
@@ -266,7 +266,7 @@ body {
 #icon-search-left {
   position: absolute;
   top: 14px;
-  left: 20px;
+  left: 21px;
   font-size: 1.8rem;
   color: #9cafc3;
 }
@@ -274,7 +274,7 @@ body {
 #icon-sarch-right {
   position: absolute;
   top: 14px;
-  right: 24px;
+  right: 21px;
   font-size: 1.8rem;
   color: var(--color__primary);
   cursor: pointer;
