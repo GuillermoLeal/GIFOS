@@ -51,7 +51,6 @@ const handleDataAutocomplete = () => {
  * @description mostrar los gifs que el cliente busco
  */
 const handleDataSearch = (seeMore = false) => {
-	console.log(seeMore);
 	if (!seeMore) totalGifs = 0;
 	const search = searchInput.value;
 	const offset = totalGifs || 0;
