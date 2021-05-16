@@ -6,7 +6,8 @@ const containerSearch = document.querySelector('#search-input');
 const searchInput = document.querySelector('#search');
 const searchList = document.querySelector('#list-search');
 // icons
-const searchIconRight = document.querySelector('#icon-sarch-right');
+const searchIconLeft = document.querySelector('#icon-search-left');
+const searchIconRight = document.querySelector('#icon-search-right');
 // sections
 const sectionInfoSearch = document.querySelector('#info-search');
 const sectionDataSearch = document.querySelector('#data-search');
@@ -16,12 +17,13 @@ const containerGifsSearch = document.querySelector('#gifs-results');
 const titleSearch = document.querySelector('#title-search');
 // data
 const dataSearch = [];
+const itemsAutocomplete = [];
 
 //? FUNCTIONS ****************
 /**
  * @description Llenado de la lista de sugerencias del buscador
  */
-const getDataAutocomplete = () => {
+const handleDataAutocomplete = () => {
 	const search = searchInput.value;
 	toggleIconsSearch();
 
@@ -32,35 +34,35 @@ const getDataAutocomplete = () => {
 
 			if (data.length) {
 				data.forEach((item) => {
-					searchList.innerHTML += `<li><i class="material-icons item-list-autocomplete">search</i>${item.name}</li>`;
+					searchList.innerHTML += `<li class="item-list-autocomplete" id="value-${item.name}"><i class="material-icons">search</i>${item.name}</li>`;
 				});
+				addEventAutocomplete();
 				containerSearch.classList.add('active');
 			} else {
 				containerSearch.classList.remove('active');
 			}
 		})
 		.catch((err) => {
-			console.warn('Error al hacer la petición getDataAutocomplete en la API: ', err);
+			console.warn('Error al hacer la petición handleDataAutocomplete en la API: ', err);
 		});
 };
 
-const getDataSearch = (event) => {
-	// Si se preciona Enter en el buscador hace la petición...
-	if (event.keyCode === 13) {
-		event.preventDefault();
+/**
+ * @description mostrar los gifs que el cliente busco
+ */
+const handleDataSearch = () => {
+	const search = searchInput.value;
+	const offset = dataSearch.length || 0;
+	titleSearch.innerText = search.toUpperCase();
 
-		const search = searchInput.value;
-		const offset = dataSearch.length || 0;
-		titleSearch.innerText = search.toUpperCase();
+	getApiSearch(search, 12, offset)
+		.then((res) => {
+			const { data } = res;
+			containerGifsSearch.innerHTML = '';
 
-		getApiSearch(search, 12, offset)
-			.then((res) => {
-				const { data } = res;
-				containerGifsSearch.innerHTML = '';
-
-				if (data.length) {
-					data.forEach((item) => {
-						containerGifsSearch.innerHTML += `
+			if (data.length) {
+				data.forEach((item) => {
+					containerGifsSearch.innerHTML += `
 						<div class="gif-container">
 							<img class="gif" src="${item.images.fixed_height.url}"></img>
 							<div class="hover-gif">
@@ -76,17 +78,35 @@ const getDataSearch = (event) => {
 							</div>
 						</div>
 						`;
-					});
-				}
+				});
+			}
 
-				containerSearch.classList.remove('active');
-				toggleIconsSearch();
-				showSectionSearch(data.length ? true : false);
-			})
-			.catch((err) => {
-				console.warn('Error al hacer la petición getApiSearch en la API: ', err);
-			});
-	}
+			containerSearch.classList.remove('active');
+			toggleIconsSearch();
+			showSectionSearch(data.length ? true : false);
+		})
+		.catch((err) => {
+			console.warn('Error al hacer la petición getApiSearch en la API: ', err);
+		});
+};
+
+/**
+ * @description Agregando evento a las sugerencias en el buscador
+ */
+const addEventAutocomplete = () => {
+	const itemsListAutocomplete = document.querySelectorAll('.item-list-autocomplete');
+
+	itemsListAutocomplete.forEach((item) => {
+		item.addEventListener('click', handleSearchByAutocomplete);
+	});
+};
+
+/**
+ * @description Buscar por gif por sugerencia
+ */
+const handleSearchByAutocomplete = () => {
+	searchInput.value = event.target.id.replace('value-', '');
+	handleDataSearch();
 };
 
 /**
@@ -118,7 +138,7 @@ const toggleIconsSearch = () => {
 /**
  * @description Limpiar el buscador de gifs
  */
-const resetSearch = () => {
+const handleResetSearch = () => {
 	if (searchInput.value) {
 		containerSearch.classList.remove('active');
 		sectionInfoSearch.classList.add('active');
@@ -131,6 +151,13 @@ const resetSearch = () => {
 };
 
 //? EVENTS *******************
-searchInput.addEventListener('keyup', (event) => getDataSearch(event));
-searchInput.addEventListener('input', getDataAutocomplete);
-searchIconRight.addEventListener('click', resetSearch);
+searchInput.addEventListener('keyup', (event) => {
+	// Si se preciona Enter en el buscador hace la petición...
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		handleDataSearch();
+	}
+});
+searchIconLeft.addEventListener('click', handleDataSearch);
+searchInput.addEventListener('input', handleDataAutocomplete);
+searchIconRight.addEventListener('click', handleResetSearch);

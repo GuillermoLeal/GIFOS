@@ -23,7 +23,7 @@ body {
 }
 
 // TODO: Page Main ************************************
-#svg-GIFOS {
+.svg-gifos-fill {
 	fill: var(--color__primary);
 }
 
@@ -90,7 +90,7 @@ body {
 	color: $grey;
 }
 
-#icon-sarch-right {
+#icon-search-right {
 	position: absolute;
 	top: 14px;
 	right: 21px;

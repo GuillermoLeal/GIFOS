@@ -97,7 +97,7 @@ body {
   min-width: 30px;
 }
 
-#svg-GIFOS {
+.svg-gifos-fill {
   fill: var(--color__primary);
 }
 
@@ -195,7 +195,7 @@ body {
   color: #9cafc3;
 }
 
-#icon-sarch-right {
+#icon-search-right {
   position: absolute;
   top: 14px;
   right: 21px;
@@ -983,7 +983,7 @@ footer p {
 
 @media (max-width: 1023px) {
   .gif-container {
-    height: 250px;
+    height: 170px;
   }
 }
 
@@ -1086,7 +1086,7 @@ footer p {
 
 @media (max-width: 767px) {
   .hover-gif {
-    padding: 5px;
+    display: none;
   }
 }
 

@@ -13,7 +13,7 @@
 	}
 
 	@include media(md) {
-		height: 250px;
+		height: 170px;
 	}
 
 	@include media(xs) {
@@ -91,7 +91,7 @@
 	align-items: flex-end;
 
 	@include media(sm) {
-		padding: 5px;
+		display: none;
 	}
 }
 
