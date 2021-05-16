@@ -5,6 +5,7 @@ import { getApiAutocomplete, getApiSearch } from './api/getDataApi.js';
 const containerSearch = document.querySelector('#search-input');
 const searchInput = document.querySelector('#search');
 const searchList = document.querySelector('#list-search');
+const btnSeeMore = document.querySelector('#btn-see-more');
 // icons
 const searchIconLeft = document.querySelector('#icon-search-left');
 const searchIconRight = document.querySelector('#icon-search-right');
@@ -16,8 +17,7 @@ const sectionGifNoData = document.querySelector('#gifs-no-data');
 const containerGifsSearch = document.querySelector('#gifs-results');
 const titleSearch = document.querySelector('#title-search');
 // data
-const dataSearch = [];
-const itemsAutocomplete = [];
+let totalGifs = 0;
 
 //? FUNCTIONS ****************
 /**
@@ -50,17 +50,22 @@ const handleDataAutocomplete = () => {
 /**
  * @description mostrar los gifs que el cliente busco
  */
-const handleDataSearch = () => {
+const handleDataSearch = (seeMore = false) => {
+	console.log(seeMore);
+	if (!seeMore) totalGifs = 0;
 	const search = searchInput.value;
-	const offset = dataSearch.length || 0;
+	const offset = totalGifs || 0;
 	titleSearch.innerText = search.toUpperCase();
 
 	getApiSearch(search, 12, offset)
 		.then((res) => {
-			const { data } = res;
-			containerGifsSearch.innerHTML = '';
+			const { data, pagination } = res;
+			if (!seeMore) containerGifsSearch.innerHTML = '';
 
 			if (data.length) {
+				// Guardando la data que ya se buscó
+				totalGifs += data.length;
+
 				data.forEach((item) => {
 					containerGifsSearch.innerHTML += `
 						<div class="gif-container">
@@ -79,6 +84,9 @@ const handleDataSearch = () => {
 						</div>
 						`;
 				});
+
+				// Si NO se tienen mas gifs oculta el boton ver mas...
+				totalGifs < pagination.total_count ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 			}
 
 			containerSearch.classList.remove('active');
@@ -159,5 +167,6 @@ searchInput.addEventListener('keyup', (event) => {
 	}
 });
 searchIconLeft.addEventListener('click', handleDataSearch);
+btnSeeMore.addEventListener('click', () => handleDataSearch(true));
 searchInput.addEventListener('input', handleDataAutocomplete);
 searchIconRight.addEventListener('click', handleResetSearch);
