@@ -1,4 +1,4 @@
-import { getApiAutocomplete, getApiSearch } from './api/getDataApi.js';
+import { getApiAutocomplete, getApiSearch, getFavoritesLocal, setFavoritesLocal } from './api/getDataApi.js';
 
 //? VARIABLES ****************
 // search
@@ -12,8 +12,6 @@ const searchIconRight = document.querySelector('#icon-search-right');
 // sections
 const sectionInfoSearch = document.querySelector('#info-search');
 const sectionDataSearch = document.querySelector('#data-search');
-const sectionGifDataList = document.querySelector('#gifs-data');
-const sectionGifNoData = document.querySelector('#gifs-no-data');
 const containerGifsSearch = document.querySelector('#gifs-results');
 const titleSearch = document.querySelector('#title-search');
 // data
@@ -156,6 +154,11 @@ const handleResetSearch = () => {
 		searchIconRight.innerHTML = 'search';
 	}
 };
+
+/**
+ * @description Agregar gif a favoritos
+ */
+const addGifFavorites = () => {};
 
 //? EVENTS *******************
 searchInput.addEventListener('keyup', (event) => {

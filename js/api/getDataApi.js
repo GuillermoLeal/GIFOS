@@ -27,3 +27,11 @@ export const getApiSearch = (search, limit, offset) => {
 			.catch((err) => reject(err));
 	});
 };
+
+export const getFavoritesLocal = () => {
+	return localStorage.getItem('favorites');
+};
+
+export const setFavoritesLocal = (array) => {
+	localStorage.setItem('favorites', array);
+};

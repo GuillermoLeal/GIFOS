@@ -337,7 +337,7 @@ body {
   display: flex;
 }
 
-#gifs-results {
+.gifs-results {
   padding: 0% 10%;
   display: -ms-grid;
   display: grid;
@@ -347,14 +347,14 @@ body {
 }
 
 @media (max-width: 1023px) {
-  #gifs-results {
+  .gifs-results {
     -ms-grid-columns: 1fr 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media (max-width: 767px) {
-  #gifs-results {
+  .gifs-results {
     -ms-grid-columns: 1fr 1fr;
         grid-template-columns: 1fr 1fr;
   }
