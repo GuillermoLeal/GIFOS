@@ -1,5 +1,5 @@
-import { getApiAutocomplete, getApiSearch, getApiGifByID, getFavoritesLocal, setFavoritesLocal } from './api/getDataApi.js';
-import { removeItemObjFromArr } from './common/funciones.js';
+import { getApiAutocomplete, getApiSearch, getFavoritesLocal } from './api/getDataApi.js';
+import { addEventFavorites } from './favorites.js';
 
 //? VARIABLES ****************
 // search
@@ -160,42 +160,6 @@ const handleResetSearch = () => {
 		searchList.innerHTML = '';
 		searchIconRight.innerHTML = 'search';
 	}
-};
-
-const addEventFavorites = () => {
-	const btnFavorites = document.querySelectorAll('.btn-favorites');
-
-	btnFavorites.forEach((item) => {
-		item.addEventListener('click', addGifFavorites);
-	});
-};
-
-/**
- * @description Agregar gif a favoritos
- */
-const addGifFavorites = () => {
-	const gifId = event.target.id.replace('fav-', '');
-	const iconGif = document.querySelector(`#fav-${gifId}`);
-
-	getApiGifByID(gifId)
-		.then((res) => {
-			const { data } = res;
-			const favorites = getFavoritesLocal();
-
-			// Se valida si el Gif ya se encuentra en favoritos - si se encuentra lo quita.. si no lo agrega...
-			if (favorites.some((fav) => fav.id === gifId)) {
-				removeItemObjFromArr(favorites, gifId);
-				iconGif.innerText = 'favorite_border';
-			} else {
-				favorites.push(data);
-				iconGif.innerText = 'favorite';
-			}
-
-			setFavoritesLocal(favorites);
-		})
-		.catch((err) => {
-			console.log('Error al hacer la petición getApiGifByID en la API: ', err);
-		});
 };
 
 //? EVENTS *******************

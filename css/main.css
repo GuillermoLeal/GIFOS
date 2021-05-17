@@ -813,6 +813,12 @@ footer p {
   background-color: var(--color__bg);
 }
 
+@media (max-width: 767px) {
+  .btn-circle {
+    display: none;
+  }
+}
+
 .btn-see-more {
   cursor: pointer;
   padding: 12px 20px;
