@@ -1,4 +1,4 @@
-import { API_KEY, API_AUTOCOMPLETE, API_SEARCH } from './paths-api.js';
+import { API_KEY, API_AUTOCOMPLETE, API_SEARCH, API_GIF_BY_ID } from './paths-api.js';
 
 /**
  * @description Promesa para obtener data de autocompletado en el buscador de la página
@@ -28,10 +28,28 @@ export const getApiSearch = (search, limit, offset) => {
 	});
 };
 
+/**
+ * @description Promesa para obtener un gif en especifico
+ * @param string id
+ * @returns Promise
+ */
+export const getApiGifByID = (id) => {
+	return new Promise((resolve, reject) => {
+		fetch(`${API_GIF_BY_ID}/${id}?api_key=${API_KEY}`)
+			.then((res) => res.json())
+			.then((data) => resolve(data))
+			.catch((err) => reject(err));
+	});
+};
+
 export const getFavoritesLocal = () => {
-	return localStorage.getItem('favorites');
+	if (!!localStorage.getItem('favorites')) {
+		return JSON.parse(localStorage.getItem('favorites'));
+	} else {
+		return [];
+	}
 };
 
 export const setFavoritesLocal = (array) => {
-	localStorage.setItem('favorites', array);
+	localStorage.setItem('favorites', JSON.stringify(array));
 };

@@ -20,19 +20,14 @@
 		height: 120px;
 	}
 
-	button {
+	i {
 		cursor: pointer;
-		margin: 2px;
-		width: 32px;
-		height: 32px;
+		margin: 3px;
+		padding: 5px;
 		background-color: $grey;
 		border: none;
 		border-radius: 6px;
-
-		i {
-			color: $color__primary;
-		}
-
+		color: $color__primary;
 		&:hover {
 			background-color: $white;
 		}

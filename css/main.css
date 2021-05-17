@@ -277,6 +277,7 @@ body {
 }
 
 .search-input .autocom-box li i {
+  z-index: -1;
   margin-right: 10px;
   font-size: 1.8rem;
 }
@@ -993,21 +994,17 @@ footer p {
   }
 }
 
-.gif-container button {
+.gif-container i {
   cursor: pointer;
-  margin: 2px;
-  width: 32px;
-  height: 32px;
+  margin: 3px;
+  padding: 5px;
   background-color: #9cafc3;
   border: none;
   border-radius: 6px;
-}
-
-.gif-container button i {
   color: #572ee5;
 }
 
-.gif-container button:hover {
+.gif-container i:hover {
   background-color: #ffffff;
 }
 

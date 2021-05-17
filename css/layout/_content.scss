@@ -147,6 +147,7 @@ body {
 			color: $grey;
 
 			i {
+				z-index: -1;
 				margin-right: 10px;
 				font-size: $font-size-n;
 			}

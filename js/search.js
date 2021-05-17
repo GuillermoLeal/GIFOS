@@ -1,4 +1,5 @@
-import { getApiAutocomplete, getApiSearch, getFavoritesLocal, setFavoritesLocal } from './api/getDataApi.js';
+import { getApiAutocomplete, getApiSearch, getApiGifByID, getFavoritesLocal, setFavoritesLocal } from './api/getDataApi.js';
+import { removeItemObjFromArr } from './common/funciones.js';
 
 //? VARIABLES ****************
 // search
@@ -62,16 +63,21 @@ const handleDataSearch = (seeMore = false) => {
 			if (data.length) {
 				// Guardando la data que ya se buscó
 				totalGifs += data.length;
+				// traemos los favoritos
+				const favorites = getFavoritesLocal();
 
 				data.forEach((item) => {
+					// Si se encuentra en favoritos cambia el icono del gif
+					const iconFav = favorites.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
+
 					containerGifsSearch.innerHTML += `
 						<div class="gif-container">
 							<img class="gif" src="${item.images.fixed_height.url}"></img>
 							<div class="hover-gif">
 								<div class="gif-actions">
-									<button class="favorites"><i class="material-icons">favorite_border</i></button>
-									<button class="download"><i class="fas fa-download"></i></button>
-									<button class="show"><i class="fas fa-expand-alt"></i></button>
+									<i class="material-icons btn-favorites" id="fav-${item.id}">${iconFav}</i>
+									<i class="material-icons btn-download">save_alt</i>
+									<i class="material-icons btn-show">open_in_full</i>
 								</div>
 								<div class="gif-info">
 									<p class="gif-user">${item.username}</p>
@@ -81,7 +87,8 @@ const handleDataSearch = (seeMore = false) => {
 						</div>
 						`;
 				});
-
+				// Agregamos eventos a los botones de accion de los GIFS...
+				addEventFavorites();
 				// Si NO se tienen mas gifs oculta el boton ver mas...
 				totalGifs < pagination.total_count ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 			}
@@ -155,10 +162,41 @@ const handleResetSearch = () => {
 	}
 };
 
+const addEventFavorites = () => {
+	const btnFavorites = document.querySelectorAll('.btn-favorites');
+
+	btnFavorites.forEach((item) => {
+		item.addEventListener('click', addGifFavorites);
+	});
+};
+
 /**
  * @description Agregar gif a favoritos
  */
-const addGifFavorites = () => {};
+const addGifFavorites = () => {
+	const gifId = event.target.id.replace('fav-', '');
+	const iconGif = document.querySelector(`#fav-${gifId}`);
+
+	getApiGifByID(gifId)
+		.then((res) => {
+			const { data } = res;
+			const favorites = getFavoritesLocal();
+
+			// Se valida si el Gif ya se encuentra en favoritos - si se encuentra lo quita.. si no lo agrega...
+			if (favorites.some((fav) => fav.id === gifId)) {
+				removeItemObjFromArr(favorites, gifId);
+				iconGif.innerText = 'favorite_border';
+			} else {
+				favorites.push(data);
+				iconGif.innerText = 'favorite';
+			}
+
+			setFavoritesLocal(favorites);
+		})
+		.catch((err) => {
+			console.log('Error al hacer la petición getApiGifByID en la API: ', err);
+		});
+};
 
 //? EVENTS *******************
 searchInput.addEventListener('keyup', (event) => {
