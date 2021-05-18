@@ -1,5 +1,6 @@
-import { getApiAutocomplete, getApiSearch, getFavoritesLocal } from './api/getDataApi.js';
-import { addEventFavorites } from './favorites.js';
+import { getApiAutocomplete, getApiSearch, getFavoritesLocal } from '../services/services.js';
+import { addEventFavorites } from '../favorites/addFavorites.js';
+import gif from '../common/gif.js';
 
 //? VARIABLES ****************
 // search
@@ -30,11 +31,13 @@ const handleDataAutocomplete = () => {
 		.then((res) => {
 			const { data } = res;
 			searchList.innerHTML = ''; // Reseteamos la lista.
+			let lista = '';
 
 			if (data.length) {
 				data.forEach((item) => {
-					searchList.innerHTML += `<li class="item-list-autocomplete" id="value-${item.name}"><i class="material-icons">search</i>${item.name}</li>`;
+					lista += `<li class="item-list-autocomplete" id="value-${item.name}"><i class="material-icons">search</i>${item.name}</li>`;
 				});
+				searchList.innerHTML = lista;
 				addEventAutocomplete();
 				containerSearch.classList.add('active');
 			} else {
@@ -65,28 +68,16 @@ const handleDataSearch = (seeMore = false) => {
 				totalGifs += data.length;
 				// traemos los favoritos
 				const favorites = getFavoritesLocal();
+				let templateGifs = containerGifsSearch.innerHTML;
 
 				data.forEach((item) => {
 					// Si se encuentra en favoritos cambia el icono del gif
 					const iconFav = favorites.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
-
-					containerGifsSearch.innerHTML += `
-						<div class="gif-container">
-							<img class="gif" src="${item.images.fixed_height.url}"></img>
-							<div class="hover-gif">
-								<div class="gif-actions">
-									<i class="material-icons btn-favorites" id="fav-${item.id}">${iconFav}</i>
-									<i class="material-icons btn-download">save_alt</i>
-									<i class="material-icons btn-show">open_in_full</i>
-								</div>
-								<div class="gif-info">
-									<p class="gif-user">${item.username}</p>
-									<p class="gif-title">${item.title}</p>
-								</div>
-							</div>
-						</div>
-						`;
+					// Usamos el metodo para pintar los GIFS
+					templateGifs += gif.maskGifs(item, iconFav);
 				});
+
+				containerGifsSearch.innerHTML = templateGifs;
 				// Agregamos eventos a los botones de accion de los GIFS...
 				addEventFavorites();
 				// Si NO se tienen mas gifs oculta el boton ver mas...

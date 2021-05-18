@@ -1,4 +1,4 @@
-import { API_KEY, API_AUTOCOMPLETE, API_SEARCH, API_GIF_BY_ID } from './paths-api.js';
+import api from './paths-api.js';
 
 /**
  * @description Promesa para obtener data de autocompletado en el buscador de la página
@@ -7,7 +7,7 @@ import { API_KEY, API_AUTOCOMPLETE, API_SEARCH, API_GIF_BY_ID } from './paths-ap
  */
 export const getApiAutocomplete = (search) => {
 	return new Promise((resolve, reject) => {
-		fetch(`${API_AUTOCOMPLETE}?api_key=${API_KEY}&q=${search}`)
+		fetch(`${api.API_AUTOCOMPLETE}?api_key=${api.API_KEY}&q=${search}`)
 			.then((res) => res.json())
 			.then((data) => resolve(data))
 			.catch((err) => reject(err));
@@ -21,7 +21,7 @@ export const getApiAutocomplete = (search) => {
  */
 export const getApiSearch = (search, limit, offset) => {
 	return new Promise((resolve, reject) => {
-		fetch(`${API_SEARCH}?api_key=${API_KEY}&q=${search}&limit=${limit}&offset=${offset}`)
+		fetch(`${api.API_SEARCH}?api_key=${api.API_KEY}&q=${search}&limit=${limit}&offset=${offset}`)
 			.then((res) => res.json())
 			.then((data) => resolve(data))
 			.catch((err) => reject(err));
@@ -35,7 +35,7 @@ export const getApiSearch = (search, limit, offset) => {
  */
 export const getApiGifByID = (id) => {
 	return new Promise((resolve, reject) => {
-		fetch(`${API_GIF_BY_ID}/${id}?api_key=${API_KEY}`)
+		fetch(`${api.API_GIF_BY_ID}/${id}?api_key=${api.API_KEY}`)
 			.then((res) => res.json())
 			.then((data) => resolve(data))
 			.catch((err) => reject(err));
