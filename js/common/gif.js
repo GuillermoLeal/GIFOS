@@ -2,9 +2,9 @@ export default {
 	/**
 	 * @description Se encarga de pintar la lista de gifs
 	 */
-	maskGifs: function (gif, iconFav = 'favorite') {
+	maskGifs(gif, iconFav = 'favorite') {
 		return `
-			<div class="gif-container">
+			<div id="gifId-${gif.id}" class="gif-container">
 				<img class="gif" src="${gif.images.fixed_height.url}"></img>
 				<div class="hover-gif">
 					<div class="gif-actions">
@@ -23,7 +23,7 @@ export default {
 	/**
 	 * @description Eliminar objeto de un array
 	 */
-	removeItemObjFromArr: function (arr, id) {
+	removeItemObjFromArr(arr, id) {
 		const i = arr.map((itemArray) => itemArray.id).indexOf(id);
 
 		if (i !== -1) {

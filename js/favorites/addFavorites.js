@@ -1,42 +1,34 @@
-import { getApiGifByID, getFavoritesLocal, setFavoritesLocal } from '../services/services.js';
+import api from '../services/services.js';
 import gif from '../common/gif.js';
 
-/**
- * @description Agregar Evento de añadir gif a favoritos
- */
-export const addEventFavorites = (pageFav = false) => {
-	const btnFavorites = document.querySelectorAll('.btn-favorites');
+export default {
+	/**
+	 * @description Agregar gif a favoritos
+	 */
+	addGifFavorites(validatePage = false) {
+		const gifId = event.target.id.replace('fav-', '');
+		const iconGif = document.querySelector(`#fav-${gifId}`);
 
-	btnFavorites.forEach((item) => {
-		item.addEventListener('click', () => addGifFavorites(pageFav));
-	});
-};
+		api.getApiGifByID(gifId)
+			.then((res) => {
+				const { data } = res;
+				const favorites = api.getFavoritesLocal();
 
-/**
- * @description Agregar gif a favoritos
- */
-export const addGifFavorites = (validatePage) => {
-	const gifId = event.target.id.replace('fav-', '');
-	const iconGif = document.querySelector(`#fav-${gifId}`);
+				// Se valida si el Gif ya se encuentra en favoritos - si se encuentra lo quita.. si no lo agrega...
+				if (favorites.some((fav) => fav.id === gifId)) {
+					gif.removeItemObjFromArr(favorites, gifId);
+					iconGif.innerText = 'favorite_border';
+				} else {
+					favorites.push(data);
+					iconGif.innerText = 'favorite';
+				}
 
-	getApiGifByID(gifId)
-		.then((res) => {
-			const { data } = res;
-			const favorites = getFavoritesLocal();
+				api.setFavoritesLocal(favorites);
 
-			// Se valida si el Gif ya se encuentra en favoritos - si se encuentra lo quita.. si no lo agrega...
-			if (favorites.some((fav) => fav.id === gifId)) {
-				gif.removeItemObjFromArr(favorites, gifId);
-				iconGif.innerText = 'favorite_border';
-			} else {
-				favorites.push(data);
-				iconGif.innerText = 'favorite';
-			}
-
-			setFavoritesLocal(favorites);
-			if (validatePage) location.reload();
-		})
-		.catch((err) => {
-			console.log('Error al hacer la petición getApiGifByID en la API: ', err);
-		});
+				if (validatePage) document.querySelector(`#gifId-${gifId}`).remove();
+			})
+			.catch((err) => {
+				console.log('Error al hacer la petición getApiGifByID en la API: ', err);
+			});
+	},
 };

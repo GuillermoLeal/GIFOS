@@ -1,6 +1,6 @@
-import { getFavoritesLocal } from '../services/services.js';
-import { addEventFavorites } from './addFavorites.js';
+import api from '../services/services.js';
 import gif from '../common/gif.js';
+import favorites from './addFavorites.js';
 
 const sectionDataSearch = document.querySelector('#data-search');
 const containerGifsSearch = document.querySelector('#gifs-results');
@@ -12,7 +12,7 @@ const btnSeeMore = document.querySelector('#btn-see-more');
  */
 const handleDataFav = () => {
 	// traemos los favoritos
-	const favorites = getFavoritesLocal();
+	const favorites = api.getFavoritesLocal();
 
 	let templateGifs = containerGifsSearch.innerHTML;
 
@@ -25,6 +25,14 @@ const handleDataFav = () => {
 	addEventFavorites(true);
 
 	showSectionSearch(favorites.length ? true : false);
+};
+
+const addEventFavorites = () => {
+	const btnFavorites = document.querySelectorAll('.btn-favorites');
+
+	btnFavorites.forEach((item) => {
+		item.addEventListener('click', () => favorites.addGifFavorites(true));
+	});
 };
 
 /**

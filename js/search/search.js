@@ -1,6 +1,6 @@
-import { getApiAutocomplete, getApiSearch, getFavoritesLocal } from '../services/services.js';
-import { addEventFavorites } from '../favorites/addFavorites.js';
+import api from '../services/services.js';
 import gif from '../common/gif.js';
+import favorites from '../favorites/addFavorites.js';
 
 //? VARIABLES ****************
 // search
@@ -27,7 +27,7 @@ const handleDataAutocomplete = () => {
 	const search = searchInput.value;
 	toggleIconsSearch();
 
-	getApiAutocomplete(search)
+	api.getApiAutocomplete(search)
 		.then((res) => {
 			const { data } = res;
 			searchList.innerHTML = ''; // Reseteamos la lista.
@@ -58,7 +58,7 @@ const handleDataSearch = (seeMore = false) => {
 	const offset = totalGifs || 0;
 	titleSearch.innerText = search.toUpperCase();
 
-	getApiSearch(search, 12, offset)
+	api.getApiSearch(search, 12, offset)
 		.then((res) => {
 			const { data, pagination } = res;
 			if (!seeMore) containerGifsSearch.innerHTML = '';
@@ -67,7 +67,7 @@ const handleDataSearch = (seeMore = false) => {
 				// Guardando la data que ya se buscó
 				totalGifs += data.length;
 				// traemos los favoritos
-				const favorites = getFavoritesLocal();
+				const favorites = api.getFavoritesLocal();
 				let templateGifs = containerGifsSearch.innerHTML;
 
 				data.forEach((item) => {
@@ -101,6 +101,17 @@ const addEventAutocomplete = () => {
 
 	itemsListAutocomplete.forEach((item) => {
 		item.addEventListener('click', handleSearchByAutocomplete);
+	});
+};
+
+/**
+ * @description Agregar Evento de añadir gif a favoritos
+ */
+const addEventFavorites = () => {
+	const btnFavorites = document.querySelectorAll('.btn-favorites');
+
+	btnFavorites.forEach((item) => {
+		item.addEventListener('click', () => favorites.addGifFavorites());
 	});
 };
 
