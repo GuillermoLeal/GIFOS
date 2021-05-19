@@ -12,7 +12,7 @@ export default {
 		api.getApiGifByID(gifId)
 			.then((res) => {
 				const { data } = res;
-				const favorites = api.getFavoritesLocal();
+				const favorites = api.getAllFavoritesLocal();
 
 				// Se valida si el Gif ya se encuentra en favoritos - si se encuentra lo quita.. si no lo agrega...
 				if (favorites.some((fav) => fav.id === gifId)) {

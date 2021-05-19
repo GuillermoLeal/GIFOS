@@ -44,9 +44,21 @@ export default {
 	 * @description Objetener los favoritos del usuario
 	 * @returns Array
 	 */
-	getFavoritesLocal() {
+	getAllFavoritesLocal() {
 		if (!!localStorage.getItem('favorites')) {
 			return JSON.parse(localStorage.getItem('favorites'));
+		} else {
+			return [];
+		}
+	},
+	/**
+	 * @description Objetener los favoritos del usuario
+	 * @returns Array
+	 */
+	getPageFavoritesLocal(limit = 12, offset = 0) {
+		if (!!localStorage.getItem('favorites')) {
+			const favorites = JSON.parse(localStorage.getItem('favorites'));
+			return favorites.slice(offset, offset + limit);
 		} else {
 			return [];
 		}

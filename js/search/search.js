@@ -67,12 +67,12 @@ const handleDataSearch = (seeMore = false) => {
 				// Guardando la data que ya se buscó
 				totalGifs += data.length;
 				// traemos los favoritos
-				const favorites = api.getFavoritesLocal();
+				const gifsFav = api.getAllFavoritesLocal();
 				let templateGifs = containerGifsSearch.innerHTML;
 
 				data.forEach((item) => {
 					// Si se encuentra en favoritos cambia el icono del gif
-					const iconFav = favorites.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
+					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
 					// Usamos el metodo para pintar los GIFS
 					templateGifs += gif.maskGifs(item, iconFav);
 				});
