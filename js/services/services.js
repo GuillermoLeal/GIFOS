@@ -2,6 +2,19 @@ import pathsApi from './paths-api.js';
 
 export default {
 	/**
+	 * @description Promesa para obtener un gif en especifico
+	 * @param string id
+	 * @returns Promise
+	 */
+	getApiTrending(limit, offset) {
+		return new Promise((resolve, reject) => {
+			fetch(`${pathsApi.API_TRENDING}?api_key=${pathsApi.API_KEY}&limit=${limit}&offset=${offset}`)
+				.then((res) => res.json())
+				.then((data) => resolve(data))
+				.catch((err) => reject(err));
+		});
+	},
+	/**
 	 * @description Promesa para obtener data de autocompletado en el buscador de la página
 	 * @param string search
 	 * @returns Promise
@@ -34,7 +47,7 @@ export default {
 	 */
 	getApiGifByID(id) {
 		return new Promise((resolve, reject) => {
-			fetch(`${pathsApi.API_GIF_BY_ID}/${id}?api_key=${pathsApi.API_KEY}`)
+			fetch(`${pathsApi.API_GIF_BY_ID}${id}?api_key=${pathsApi.API_KEY}`)
 				.then((res) => res.json())
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));

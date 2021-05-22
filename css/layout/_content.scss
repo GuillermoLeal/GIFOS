@@ -266,11 +266,14 @@ body {
 		}
 	}
 
-	ul {
+	#gifs-trending {
+		position: relative;
+		z-index: 1;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
 		padding: 0;
+		overflow: hidden;
 
 		@include media(sm) {
 			display: block;
@@ -279,17 +282,18 @@ body {
 			padding: 0% 5%;
 		}
 
-		li {
+		.gif-container {
 			margin: 0;
 			width: 30%;
-			background-color: grey;
-			display: inline-block;
+			min-width: 200px;
 
 			@include media(sm) {
+				display: inline-block;
 				margin: 10px;
 				width: 243px;
 			}
 		}
 	}
 }
+
 // TODO end page main... *******************************

@@ -50,7 +50,7 @@ const handleDataAutocomplete = () => {
 };
 
 /**
- * @description mostrar los gifs que el cliente busco
+ * @description mostrar los gifs que el usuario busco
  */
 const handleDataSearch = (seeMore = false) => {
 	if (!seeMore) totalGifs = 0;

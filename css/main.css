@@ -432,7 +432,9 @@ body {
   }
 }
 
-.list-gifs ul {
+.list-gifs #gifs-trending {
+  position: relative;
+  z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -442,10 +444,11 @@ body {
       -ms-flex-align: center;
           align-items: center;
   padding: 0;
+  overflow: hidden;
 }
 
 @media (max-width: 767px) {
-  .list-gifs ul {
+  .list-gifs #gifs-trending {
     display: block;
     white-space: nowrap;
     overflow-x: scroll;
@@ -453,15 +456,15 @@ body {
   }
 }
 
-.list-gifs ul li {
+.list-gifs #gifs-trending .gif-container {
   margin: 0;
   width: 30%;
-  background-color: grey;
-  display: inline-block;
+  min-width: 200px;
 }
 
 @media (max-width: 767px) {
-  .list-gifs ul li {
+  .list-gifs #gifs-trending .gif-container {
+    display: inline-block;
     margin: 10px;
     width: 243px;
   }
