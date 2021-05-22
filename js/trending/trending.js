@@ -42,6 +42,7 @@ const handleDataTrending = (optionArrow = 'left', scroll = false) => {
 				containerTrending.innerHTML = templateGifs;
 				// Agregamos eventos a los botones de accion de los GIFS...
 				addEventFavorites();
+				addEventDownloadGif();
 				// Ocultamos las flechas
 				optionArrow === 'left' && totalGifs <= 3 ? btnLeft.setAttribute('style', 'display: none') : btnLeft.setAttribute('style', '');
 				optionArrow === 'right' && totalGifs > pagination.total_count ? btnRight.setAttribute('style', 'display: none') : btnRight.setAttribute('style', '');
@@ -60,6 +61,14 @@ const addEventFavorites = () => {
 
 	btnFavorites.forEach((item) => {
 		item.addEventListener('click', () => favorites.addGifFavorites());
+	});
+};
+
+const addEventDownloadGif = () => {
+	const btnDownload = document.querySelectorAll('.btn-download');
+
+	btnDownload.forEach((item) => {
+		item.addEventListener('click', () => gif.downloadGif());
 	});
 };
 

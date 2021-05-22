@@ -2,7 +2,7 @@ import pathsApi from './paths-api.js';
 
 export default {
 	/**
-	 * @description Promesa para obtener un gif en especifico
+	 * @description Promesa para obtener los gifs trending
 	 * @param string id
 	 * @returns Promise
 	 */
@@ -48,6 +48,19 @@ export default {
 	getApiGifByID(id) {
 		return new Promise((resolve, reject) => {
 			fetch(`${pathsApi.API_GIF_BY_ID}${id}?api_key=${pathsApi.API_KEY}`)
+				.then((res) => res.json())
+				.then((data) => resolve(data))
+				.catch((err) => reject(err));
+		});
+	},
+	/**
+	 * @description Promesa para descargar el gif
+	 * @param string id
+	 * @returns Promise
+	 */
+	getApiGifDownlodad(hash) {
+		return new Promise((resolve, reject) => {
+			fetch(`https://media.giphy.com/media/${hash}/source.gif`)
 				.then((res) => res.json())
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));

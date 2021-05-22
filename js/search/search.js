@@ -80,6 +80,7 @@ const handleDataSearch = (seeMore = false) => {
 				containerGifsSearch.innerHTML = templateGifs;
 				// Agregamos eventos a los botones de accion de los GIFS...
 				addEventFavorites();
+				addEventDownloadGif();
 				// Si NO se tienen mas gifs oculta el boton ver mas...
 				totalGifs < pagination.total_count ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 			}
