@@ -48,6 +48,14 @@ const addEventFavorites = () => {
 	});
 };
 
+const addEventDownloadGif = () => {
+	const btnDownload = document.querySelectorAll('.btn-download');
+
+	btnDownload.forEach((item) => {
+		item.addEventListener('click', () => gif.downloadGif());
+	});
+};
+
 /**
  * @description Mostrar u ocultar las secciones al hacer una busqueda de gif
  */

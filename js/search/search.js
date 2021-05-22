@@ -116,6 +116,14 @@ const addEventFavorites = () => {
 	});
 };
 
+const addEventDownloadGif = () => {
+	const btnDownload = document.querySelectorAll('.btn-download');
+
+	btnDownload.forEach((item) => {
+		item.addEventListener('click', () => gif.downloadGif());
+	});
+};
+
 /**
  * @description Buscar por gif por sugerencia
  */
