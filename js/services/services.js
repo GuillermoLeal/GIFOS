@@ -3,7 +3,8 @@ import pathsApi from './paths-api.js';
 export default {
 	/**
 	 * @description Promesa para obtener los gifs trending
-	 * @param string id
+	 * @param limit - limite de registros que se desea obtener
+	 * @param offset - desde donde empieza a traer la data
 	 * @returns Promise
 	 */
 	getApiTrending(limit, offset) {
@@ -16,7 +17,7 @@ export default {
 	},
 	/**
 	 * @description Promesa para obtener data de autocompletado en el buscador de la página
-	 * @param string search
+	 * @param search - termino a buscar en los datos de la api
 	 * @returns Promise
 	 */
 	getApiAutocomplete(search) {
@@ -29,7 +30,9 @@ export default {
 	},
 	/**
 	 * @description Promesa para obtener data de lo que busco el cliente
-	 * @param string search
+	 * @param search - termino a buscar en los datos de la api
+	 * @param limit - limite de registros que se desea obtener
+	 * @param offset - desde donde empieza a traer la data
 	 * @returns Promise
 	 */
 	getApiSearch(search, limit, offset) {
@@ -55,7 +58,7 @@ export default {
 	},
 	/**
 	 * @description Promesa para descargar el gif
-	 * @param string id
+	 * @param hash - hash del gif
 	 * @returns Promise
 	 */
 	getApiGifDownlodad(hash) {
@@ -79,6 +82,8 @@ export default {
 	},
 	/**
 	 * @description Objetener los favoritos del usuario
+	 * @param limit - limite de registros que se desea obtener
+	 * @param offset - desde donde empieza a traer la data
 	 * @returns Array
 	 */
 	getPageFavoritesLocal(limit = 12, offset = 0) {
@@ -91,7 +96,7 @@ export default {
 	},
 	/**
 	 * @description Almacenar los favoritos del usuario
-	 * @param Array array
+	 * @param Array - array que se agregará en el localStorage de 'favoritos'
 	 */
 	setFavoritesLocal(array) {
 		localStorage.setItem('favorites', JSON.stringify(array));
