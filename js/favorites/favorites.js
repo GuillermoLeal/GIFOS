@@ -22,30 +22,21 @@ const handleDataFav = (seeMore = false) => {
 	let templateGifs = containerGifsSearch.innerHTML;
 
 	if (gifFav.length) totalGifs += gifFav.length;
+	const gifsIds = [];
 
 	gifFav.forEach((item) => {
+		gifsIds.push(item.id);
 		templateGifs += gif.maskGifs(item);
 	});
 
 	containerGifsSearch.innerHTML = templateGifs;
 	// Agregamos eventos a los botones de accion de los GIFS...
-	addEventFavorites(true);
+	favorites.addEventFavorites(gifsIds, true);
 	addEventDownloadGif();
 	// Si NO se tienen mas gifs oculta el boton ver mas...
 	totalGifs < totalAllGifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 
 	showSectionSearch(gifFav.length ? true : false);
-};
-
-/**
- * @description Agregar Evento de añadir gif a favoritos
- */
-const addEventFavorites = () => {
-	const btnFavorites = document.querySelectorAll('.btn-favorites');
-
-	btnFavorites.forEach((item) => {
-		item.addEventListener('click', () => favorites.addGifFavorites(true));
-	});
 };
 
 const addEventDownloadGif = () => {

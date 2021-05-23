@@ -69,8 +69,10 @@ const handleDataSearch = (seeMore = false) => {
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
 				let templateGifs = containerGifsSearch.innerHTML;
+				const gifsIds = [];
 
 				data.forEach((item) => {
+					gifsIds.push(item.id);
 					// Si se encuentra en favoritos cambia el icono del gif
 					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
 					// Usamos el metodo para pintar los GIFS
@@ -79,7 +81,7 @@ const handleDataSearch = (seeMore = false) => {
 
 				containerGifsSearch.innerHTML = templateGifs;
 				// Agregamos eventos a los botones de accion de los GIFS...
-				addEventFavorites();
+				addEventFavorites(gifsIds);
 				addEventDownloadGif();
 				// Si NO se tienen mas gifs oculta el boton ver mas...
 				totalGifs < pagination.total_count ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');

@@ -31,8 +31,10 @@ const handleDataTrending = (optionArrow = 'left', scroll = false) => {
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
 				let templateGifs = containerTrending.innerHTML;
+				const gidsIds = [];
 
 				data.forEach((item) => {
+					gidsIds.push(item.id);
 					// Si se encuentra en favoritos cambia el icono del gif
 					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
 					// Usamos el metodo para pintar los GIFS
@@ -41,7 +43,7 @@ const handleDataTrending = (optionArrow = 'left', scroll = false) => {
 
 				containerTrending.innerHTML = templateGifs;
 				// Agregamos eventos a los botones de accion de los GIFS...
-				addEventFavorites();
+				favorites.addEventFavorites(gidsIds);
 				addEventDownloadGif();
 				// Ocultamos las flechas
 				optionArrow === 'left' && totalGifs <= 3 ? btnLeft.setAttribute('style', 'display: none') : btnLeft.setAttribute('style', '');
@@ -51,17 +53,6 @@ const handleDataTrending = (optionArrow = 'left', scroll = false) => {
 		.catch((err) => {
 			console.warn('Error al hacer la petición getApiSearch en la API: ', err);
 		});
-};
-
-/**
- * @description Agregar Evento de añadir gif a favoritos
- */
-const addEventFavorites = () => {
-	const btnFavorites = document.querySelectorAll('.btn-favorites');
-
-	btnFavorites.forEach((item) => {
-		item.addEventListener('click', () => favorites.addGifFavorites());
-	});
 };
 
 const addEventDownloadGif = () => {
