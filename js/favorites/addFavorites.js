@@ -7,8 +7,8 @@ let validateEvent = true;
 export default {
 	/**
 	 * @description Agregar Evento de añadir gif a favoritos
-	 * @param ids - id de los gifs los cuales se le agregara el evento al boton de favoritos
-	 * @param validatePage - validar si se encuentra en la ruta de favoritos, si es asi elimina el item de la vista - default: false
+	 * @param ids - id de los gifs los cuales se le agregara el evento al boton de favoritos - type: Array
+	 * @param validatePage - validar si se encuentra en la ruta de favoritos, si es asi elimina el item de la vista - type: Boolean
 	 */
 	addEventFavorites(ids, validatePage = false) {
 		ids.forEach((id) => {
@@ -18,7 +18,7 @@ export default {
 	},
 	/**
 	 * @description Agregar gif a favoritos
-	 * @param validatePage - validar si se encuentra en la ruta de favoritos, si es asi elimina el item de la vista
+	 * @param validatePage - validar si se encuentra en la ruta de favoritos, si es asi elimina el item de la vista - type: Boolean
 	 */
 	addGifFavorites(validatePage = false) {
 		if (validateEvent) {

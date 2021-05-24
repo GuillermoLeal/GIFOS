@@ -466,7 +466,13 @@ body {
   .list-gifs #gifs-trending .gif-container {
     display: inline-block;
     margin: 10px;
-    width: 243px;
+    width: 320px;
+  }
+}
+
+@media (max-width: 375px) {
+  .list-gifs #gifs-trending .gif-container {
+    width: 200px;
   }
 }
 
@@ -608,19 +614,19 @@ body {
   }
 }
 
-.links-nav {
+.navbar-links {
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
   color: var(--color__primary);
 }
 
 @media (max-width: 767px) {
-  .links-nav {
+  .navbar-links {
     color: #ffffff;
   }
 }
 
-.links-nav:after {
+.navbar-links:after {
   bottom: 0;
   content: '';
   display: block;
@@ -633,12 +639,12 @@ body {
   width: 0;
 }
 
-.links-nav:hover:after {
+.navbar-links:hover:after {
   width: 100%;
   left: 0;
 }
 
-.links-nav:active {
+.navbar-links:active {
   color: #9cafc3;
 }
 
@@ -987,13 +993,13 @@ footer p {
 
 @media (max-width: 1440px) {
   .gif-container {
-    height: 225px;
+    height: 275px;
   }
 }
 
 @media (max-width: 1023px) {
   .gif-container {
-    height: 170px;
+    height: 225px;
   }
 }
 

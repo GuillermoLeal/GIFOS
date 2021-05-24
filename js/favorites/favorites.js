@@ -11,6 +11,7 @@ let totalGifs = 0;
 //? FUNCTIONS ****************
 /**
  * @description mostrar los gifs que estan en favoritos
+ * @param seeMore - Si el evento viene del boton "ver mas" - type: Boolean
  */
 const handleDataFav = (seeMore = false) => {
 	if (!seeMore) totalGifs = 0;
@@ -49,6 +50,7 @@ const addEventDownloadGif = () => {
 
 /**
  * @description Mostrar u ocultar las secciones al hacer una busqueda de gif
+ * @param validateData - Si la consulta tiene datos muestra la seccion correspondiente - type: Boolean
  */
 const showSectionSearch = (validateData) => {
 	if (validateData) {

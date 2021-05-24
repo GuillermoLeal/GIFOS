@@ -3,8 +3,8 @@ import pathsApi from './paths-api.js';
 export default {
 	/**
 	 * @description Promesa para obtener los gifs trending
-	 * @param limit - limite de registros que se desea obtener
-	 * @param offset - desde donde empieza a traer la data
+	 * @param limit - limite de registros que se desea obtener - type: String
+	 * @param offset - desde donde empieza a traer la data - type: Number
 	 * @returns Promise
 	 */
 	getApiTrending(limit, offset) {
@@ -17,7 +17,7 @@ export default {
 	},
 	/**
 	 * @description Promesa para obtener data de autocompletado en el buscador de la página
-	 * @param search - termino a buscar en los datos de la api
+	 * @param search - termino a buscar en los datos de la api - type: String
 	 * @returns Promise
 	 */
 	getApiAutocomplete(search) {
@@ -30,9 +30,9 @@ export default {
 	},
 	/**
 	 * @description Promesa para obtener data de lo que busco el cliente
-	 * @param search - termino a buscar en los datos de la api
-	 * @param limit - limite de registros que se desea obtener
-	 * @param offset - desde donde empieza a traer la data
+	 * @param search - termino a buscar en los datos de la api - type: String
+	 * @param limit - limite de registros que se desea obtener - type: Number
+	 * @param offset - desde donde empieza a traer la data - type: Number
 	 * @returns Promise
 	 */
 	getApiSearch(search, limit, offset) {
@@ -45,7 +45,7 @@ export default {
 	},
 	/**
 	 * @description Promesa para obtener un gif en especifico
-	 * @param string id
+	 * @param string id - type: String
 	 * @returns Promise
 	 */
 	getApiGifByID(id) {
@@ -58,10 +58,10 @@ export default {
 	},
 	/**
 	 * @description Promesa para descargar el gif
-	 * @param hash - hash del gif
+	 * @param hash - hash del gif - type: String or Number
 	 * @returns Promise
 	 */
-	getApiGifDownlodad(hash) {
+	getApiGifDownlodad(hash = null) {
 		return new Promise((resolve, reject) => {
 			fetch(`https://media.giphy.com/media/${hash}/source.gif`)
 				.then((res) => res.json())
@@ -82,8 +82,8 @@ export default {
 	},
 	/**
 	 * @description Objetener los favoritos del usuario
-	 * @param limit - limite de registros que se desea obtener
-	 * @param offset - desde donde empieza a traer la data
+	 * @param limit - limite de registros que se desea obtener - type: Number
+	 * @param offset - desde donde empieza a traer la data - type: Number
 	 * @returns Array
 	 */
 	getPageFavoritesLocal(limit = 12, offset = 0) {

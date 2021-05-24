@@ -51,6 +51,7 @@ const handleDataAutocomplete = () => {
 
 /**
  * @description mostrar los gifs que el usuario busco
+ * @param seeMore - Si el evento viene del boton "ver mas" - type: Boolean
  */
 const handleDataSearch = (seeMore = false) => {
 	if (!seeMore) totalGifs = 0;
@@ -81,7 +82,7 @@ const handleDataSearch = (seeMore = false) => {
 
 				containerGifsSearch.innerHTML = templateGifs;
 				// Agregamos eventos a los botones de accion de los GIFS...
-				addEventFavorites(gifsIds);
+				favorites.addEventFavorites(gifsIds);
 				addEventDownloadGif();
 				// Si NO se tienen mas gifs oculta el boton ver mas...
 				totalGifs < pagination.total_count ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
@@ -107,17 +108,6 @@ const addEventAutocomplete = () => {
 	});
 };
 
-/**
- * @description Agregar Evento de añadir gif a favoritos
- */
-const addEventFavorites = () => {
-	const btnFavorites = document.querySelectorAll('.btn-favorites');
-
-	btnFavorites.forEach((item) => {
-		item.addEventListener('click', () => favorites.addGifFavorites());
-	});
-};
-
 const addEventDownloadGif = () => {
 	const btnDownload = document.querySelectorAll('.btn-download');
 
@@ -136,6 +126,7 @@ const handleSearchByAutocomplete = () => {
 
 /**
  * @description Mostrar u ocultar las secciones al hacer una busqueda de gif
+ * @param validateData - Si la consulta tiene datos muestra la seccion correspondiente - type: Boolean
  */
 const showSectionSearch = (validateData) => {
 	if (validateData) {
@@ -178,7 +169,7 @@ const handleResetSearch = () => {
 //? EVENTS *******************
 searchInput.addEventListener('keyup', (event) => {
 	// Si se preciona Enter en el buscador hace la petición...
-	if (event.keyCode === 13) {
+	if (event.keyCode === 13 && searchInput.value.length) {
 		event.preventDefault();
 		handleDataSearch();
 	}

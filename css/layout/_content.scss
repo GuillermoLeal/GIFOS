@@ -290,7 +290,11 @@ body {
 			@include media(sm) {
 				display: inline-block;
 				margin: 10px;
-				width: 243px;
+				width: 320px;
+			}
+
+			@include media(xs) {
+				width: 200px;
 			}
 		}
 	}
