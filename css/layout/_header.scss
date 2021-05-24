@@ -3,7 +3,7 @@
 	z-index: 5;
 	width: 100%;
 	box-sizing: border-box;
-	background-color: white;
+	background-color: var(--color__bg);
 	font-size: $font-size-xs;
 	padding: 5px 10%;
 	border-top: 6px solid var(--color__primary__transparent);

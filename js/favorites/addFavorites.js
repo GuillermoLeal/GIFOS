@@ -1,6 +1,6 @@
 import api from '../services/services.js';
 import gif from '../common/gif.js';
-const dataFavs = document.querySelector('#data-search');
+const dataFavs = document.querySelector('#gifs-section');
 const btnSeeMore = document.querySelector('#btn-see-more');
 let validateEvent = true;
 

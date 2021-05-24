@@ -2,7 +2,7 @@ import api from '../services/services.js';
 import gif from '../common/gif.js';
 import favorites from './addFavorites.js';
 
-const sectionDataSearch = document.querySelector('#data-search');
+const sectionDataSearch = document.querySelector('#gifs-section');
 const containerGifsSearch = document.querySelector('#gifs-results');
 const btnSeeMore = document.querySelector('#btn-see-more');
 // data

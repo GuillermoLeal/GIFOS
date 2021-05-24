@@ -13,7 +13,7 @@ const searchIconLeft = document.querySelector('#icon-search-left');
 const searchIconRight = document.querySelector('#icon-search-right');
 // sections
 const sectionInfoSearch = document.querySelector('#info-search');
-const sectionDataSearch = document.querySelector('#data-search');
+const sectionDataSearch = document.querySelector('#gifs-section');
 const containerGifsSearch = document.querySelector('#gifs-results');
 const titleSearch = document.querySelector('#title-search');
 // data

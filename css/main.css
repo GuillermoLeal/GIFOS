@@ -302,15 +302,15 @@ main {
   display: block;
 }
 
-#data-search {
+#gifs-section {
   display: none;
 }
 
-#data-search #gifs-data {
+#gifs-section #gifs-data {
   display: none;
 }
 
-#data-search #gifs-no-data {
+#gifs-section #gifs-no-data {
   display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -324,19 +324,19 @@ main {
           align-items: center;
 }
 
-#data-search.active-data {
+#gifs-section.active-data {
   display: block;
 }
 
-#data-search.active-data #gifs-data {
+#gifs-section.active-data #gifs-data {
   display: block;
 }
 
-#data-search.active-no-data {
+#gifs-section.active-no-data {
   display: block;
 }
 
-#data-search.active-no-data #gifs-no-data {
+#gifs-section.active-no-data #gifs-no-data {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -486,7 +486,7 @@ main {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: white;
+  background-color: var(--color__bg);
   font-size: 1rem;
   padding: 5px 10%;
   border-top: 6px solid var(--color__primary__transparent);
