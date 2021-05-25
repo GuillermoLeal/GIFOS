@@ -1,4 +1,4 @@
-const ENDPOINT = 'https://api.giphy.com/v1/gifs/';
+const ENDPOINT = 'http://api.giphy.com/v1/gifs/';
 
 export default {
 	// TODO: USER_KEY

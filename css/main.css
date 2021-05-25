@@ -913,7 +913,6 @@ footer p {
   font-size: 2.5rem;
   color: var(--color__primary);
   text-align: center;
-  line-height: 40px;
 }
 
 @media (max-width: 1023px) {
@@ -952,7 +951,6 @@ footer p {
   font-size: 2.5rem;
   color: var(--color__primary);
   text-align: center;
-  line-height: 40px;
   padding: 0;
   color: #50e3c2;
 }

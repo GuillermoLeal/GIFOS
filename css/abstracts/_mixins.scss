@@ -4,7 +4,6 @@
 	font-size: $font-size-m;
 	color: var(--color__primary);
 	text-align: center;
-	line-height: 40px;
 
 	@include media(md) {
 		font-size: $font-size-n;
