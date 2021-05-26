@@ -75,10 +75,6 @@ body {
   background-color: var(--color__bg);
 }
 
-main {
-  padding-top: 100px;
-}
-
 .d-none-md {
   display: none;
 }
@@ -500,12 +496,13 @@ main {
   }
 }
 
-.navbar img {
+.navbar svg {
   width: 80px;
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {
-  .navbar img {
+  .navbar svg {
     width: 60px;
   }
 }
@@ -588,6 +585,12 @@ main {
 
 #menu li {
   padding: 14px 25px;
+}
+
+#menu li button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 1rem;
 }
 
 @media (max-width: 1023px) {

@@ -13,8 +13,9 @@
 		padding: 20px 30px;
 	}
 
-	img {
+	svg {
 		width: 80px;
+		cursor: pointer;
 
 		@include media(sm) {
 			width: 60px;
@@ -74,6 +75,12 @@
 
 	li {
 		padding: 14px 25px;
+
+		button {
+			border: none;
+			background-color: rgba(255, 255, 255, 0);
+			font-size: $font-size-xs;
+		}
 
 		@include media(md) {
 			padding: 20px;

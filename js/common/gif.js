@@ -48,6 +48,8 @@ export default {
 	},
 	/**
 	 * @description Eliminar objeto de un array
+	 * @param array - Array el cual se le eliminara el item - type: Array
+	 * @param id - item a buscar en el array - type: String | Number
 	 */
 	removeItemObjFromArr(arr, id) {
 		const i = arr.map((itemArray) => itemArray.id).indexOf(id);
