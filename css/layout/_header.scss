@@ -1,5 +1,6 @@
 .navbar {
-	position: fixed;
+	position: sticky;
+	top: 0;
 	z-index: 5;
 	width: 100%;
 	box-sizing: border-box;
@@ -154,4 +155,11 @@
 
 .active {
 	color: $grey;
+}
+
+.shadow {
+	box-shadow: -1px 5px 18px 0px rgba(0, 0, 0, 0.66);
+	height: 6px;
+	position: sticky;
+	top: 100px;
 }

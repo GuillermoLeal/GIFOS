@@ -34,7 +34,7 @@
 	}
 
 	&:hover {
-		background-color: var(--color__primary__transparent);
+		background-color: $color__hover__gifs;
 
 		.gif-actions {
 			display: flex;

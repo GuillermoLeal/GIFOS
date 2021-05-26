@@ -2,10 +2,11 @@ import api from '../services/services.js';
 import gif from '../common/gif.js';
 import favorites from './addFavorites.js';
 
-const sectionDataSearch = document.querySelector('#gifs-section');
-const containerGifsSearch = document.querySelector('#gifs-results');
+const sectionGifs = document.querySelector('#gifs-section');
+const containerGifs = document.querySelector('#gifs-results');
 const btnSeeMore = document.querySelector('#btn-see-more');
 // data
+let favoritesArray = [];
 let totalGifs = 0;
 
 //? FUNCTIONS ****************
@@ -20,7 +21,7 @@ const handleDataFav = (seeMore = false) => {
 	const gifFav = api.getPageFavoritesLocal(12, offset);
 	const totalAllGifs = api.getAllFavoritesLocal();
 
-	let templateGifs = containerGifsSearch.innerHTML;
+	let templateGifs = containerGifs.innerHTML;
 
 	if (gifFav.length) totalGifs += gifFav.length;
 	const gifsIds = [];
@@ -30,7 +31,7 @@ const handleDataFav = (seeMore = false) => {
 		templateGifs += gif.maskGifs(item);
 	});
 
-	containerGifsSearch.innerHTML = templateGifs;
+	containerGifs.innerHTML = templateGifs;
 	// Agregamos eventos a los botones de accion de los GIFS...
 	favorites.addEventFavorites(gifsIds, true);
 	addEventDownloadGif();
@@ -54,11 +55,11 @@ const addEventDownloadGif = () => {
  */
 const showSectionSearch = (validateData) => {
 	if (validateData) {
-		sectionDataSearch.classList.add('active-data');
-		sectionDataSearch.classList.remove('active-no-data');
+		sectionGifs.classList.add('active-data');
+		sectionGifs.classList.remove('active-no-data');
 	} else {
-		sectionDataSearch.classList.add('active-no-data');
-		sectionDataSearch.classList.remove('active-data');
+		sectionGifs.classList.add('active-no-data');
+		sectionGifs.classList.remove('active-data');
 	}
 };
 

@@ -1,6 +1,7 @@
 import api from '../services/services.js';
 import gif from '../common/gif.js';
-const dataFavs = document.querySelector('#gifs-section');
+const sectionGifs = document.querySelector('#gifs-section');
+const containerGifs = document.querySelector('#gifs-results');
 const btnSeeMore = document.querySelector('#btn-see-more');
 let validateEvent = true;
 
@@ -25,6 +26,7 @@ export default {
 			validateEvent = false;
 			const gifId = event.target.id.replace('fav-', '');
 			const iconGif = document.querySelector(`#fav-${gifId}`);
+
 			api.getApiGifByID(gifId)
 				.then((res) => {
 					const { data } = res;
@@ -48,11 +50,11 @@ export default {
 					// Mostrar secciona de data o sin data en Favoritos
 					if (window.location.pathname == '/favoritos.html') {
 						if (favorites.length) {
-							dataFavs.classList.add('active-data');
-							dataFavs.classList.remove('active-no-data');
+							sectionGifs.classList.add('active-data');
+							sectionGifs.classList.remove('active-no-data');
 						} else {
-							dataFavs.classList.add('active-no-data');
-							dataFavs.classList.remove('active-data');
+							sectionGifs.classList.add('active-no-data');
+							sectionGifs.classList.remove('active-data');
 						}
 					}
 				})

@@ -50,7 +50,7 @@
   --color__bg__grey: #222326;
   --color__primary: #ffffff;
   --color__text: #ffffff;
-  --color__primary__transparent: #1b1b1bd5;
+  --color__primary__transparent: #000000;
 }
 
 * {
@@ -481,7 +481,9 @@ main {
 }
 
 .navbar {
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   z-index: 5;
   width: 100%;
   -webkit-box-sizing: border-box;
@@ -688,6 +690,15 @@ main {
 
 .active {
   color: #9cafc3;
+}
+
+.shadow {
+  -webkit-box-shadow: -1px 5px 18px 0px rgba(0, 0, 0, 0.66);
+          box-shadow: -1px 5px 18px 0px rgba(0, 0, 0, 0.66);
+  height: 6px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px;
 }
 
 footer {
@@ -1030,7 +1041,7 @@ footer p {
 }
 
 .gif-container:hover {
-  background-color: var(--color__primary__transparent);
+  background-color: rgba(86, 46, 229, 0.8);
 }
 
 .gif-container:hover .gif-actions {
