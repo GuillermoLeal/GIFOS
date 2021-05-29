@@ -1,6 +1,5 @@
 import api from '../services/services.js';
 import gif from '../common/gif.js';
-import favorites from '../favorites/addFavorites.js';
 
 //? VARIABLES ****************
 // search
@@ -82,7 +81,7 @@ const handleDataSearch = (seeMore = false) => {
 
 				containerGifsSearch.innerHTML = templateGifs;
 				// Agregamos eventos a los botones de accion de los GIFS...
-				favorites.addEventFavorites(gifsIds);
+				gif.addEventFavorites(gifsIds);
 				addEventDownloadGif();
 				// Si NO se tienen mas gifs oculta el boton ver mas...
 				totalGifs < pagination.total_count ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');

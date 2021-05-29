@@ -1,6 +1,5 @@
 import api from '../services/services.js';
 import gif from '../common/gif.js';
-import favorites from './addFavorites.js';
 
 const sectionGifs = document.querySelector('#gifs-section');
 const containerGifs = document.querySelector('#gifs-results');
@@ -33,7 +32,7 @@ const handleDataFav = (seeMore = false) => {
 
 	containerGifs.innerHTML = templateGifs;
 	// Agregamos eventos a los botones de accion de los GIFS...
-	favorites.addEventFavorites(gifsIds, true);
+	gif.addEventFavorites(gifsIds, true);
 	addEventDownloadGif();
 	// Si NO se tienen mas gifs oculta el boton ver mas...
 	totalGifs < totalAllGifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');

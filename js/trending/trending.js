@@ -1,6 +1,5 @@
 import api from '../services/services.js';
 import gif from '../common/gif.js';
-import favorites from '../favorites/addFavorites.js';
 
 const containerTrending = document.querySelector('#gifs-trending');
 const btnLeft = document.querySelector('#btn-arrow-left');
@@ -43,7 +42,7 @@ const handleDataTrending = (optionArrow = 'left', scroll = false) => {
 
 				containerTrending.innerHTML = templateGifs;
 				// Agregamos eventos a los botones de accion de los GIFS...
-				favorites.addEventFavorites(gidsIds);
+				gif.addEventFavorites(gidsIds);
 				addEventDownloadGif();
 				// Ocultamos las flechas
 				optionArrow === 'left' && totalGifs <= 3 ? btnLeft.setAttribute('style', 'display: none') : btnLeft.setAttribute('style', '');
