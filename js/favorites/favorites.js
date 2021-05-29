@@ -5,7 +5,6 @@ const sectionGifs = document.querySelector('#gifs-section');
 const containerGifs = document.querySelector('#gifs-results');
 const btnSeeMore = document.querySelector('#btn-see-more');
 // data
-let favoritesArray = [];
 let totalGifs = 0;
 
 //? FUNCTIONS ****************
@@ -14,15 +13,15 @@ let totalGifs = 0;
  * @param seeMore - Si el evento viene del boton "ver mas" - type: Boolean
  */
 const handleDataFav = (seeMore = false) => {
-	if (!seeMore) totalGifs = 0;
-	const offset = totalGifs || 0;
+	// debugger;
+	if (!seeMore) gif.setTotalGifs(0);
+	const offset = gif.totalGifs || 0;
 	// traemos los favoritos
 	const gifFav = api.getPageFavoritesLocal(12, offset);
 	const totalAllGifs = api.getAllFavoritesLocal();
 
 	let templateGifs = containerGifs.innerHTML;
 
-	if (gifFav.length) totalGifs += gifFav.length;
 	const gifsIds = [];
 
 	gifFav.forEach((item) => {
@@ -31,11 +30,15 @@ const handleDataFav = (seeMore = false) => {
 	});
 
 	containerGifs.innerHTML = templateGifs;
+
+	// gif.totalGifs += document.querySelectorAll('#gifs-results .gif-container').length;
+	gif.setTotalGifs(document.querySelectorAll('#gifs-results .gif-container').length);
+
 	// Agregamos eventos a los botones de accion de los GIFS...
 	gif.addEventFavorites(gifsIds, true);
 	addEventDownloadGif();
 	// Si NO se tienen mas gifs oculta el boton ver mas...
-	totalGifs < totalAllGifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
+	gif.totalGifs < totalAllGifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 
 	showSectionSearch(gifFav.length ? true : false);
 };

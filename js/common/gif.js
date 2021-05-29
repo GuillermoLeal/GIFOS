@@ -5,17 +5,21 @@ const btnSeeMore = document.querySelector('#btn-see-more');
 let validateEvent = true;
 
 export default {
+	totalGifs: 0,
+	setTotalGifs(totalGifs) {
+		this.totalGifs = totalGifs;
+	},
 	/**
 	 * @description Se encarga de pintar la lista de gifs
 	 */
 	maskGifs(gif, iconFav = 'favorite') {
 		return `
-			<div id="gifId-${gif.id}" class="gif-container">
+			<div class="gifId-${gif.id} gif-container">
 				<img class="gif" src="${gif.images.fixed_height.url}"></img>
 				<div class="hover-gif">
 					<div class="gif-actions">
-						<i class="material-icons btn-favorites" id="fav-${gif.id}">${iconFav}</i>
-						<i class="material-icons btn-download" id="download-${gif.id}">save_alt</i>
+						<i class="fav-${gif.id} material-icons btn-favorites">${iconFav}</i>
+						<i class="download-${gif.id} material-icons btn-download">save_alt</i>
 						<i class="material-icons btn-show">open_in_full</i>
 					</div>
 					<div class="gif-info">
@@ -33,9 +37,49 @@ export default {
 	 */
 	addEventFavorites(ids, validatePage = false) {
 		ids.forEach((id) => {
-			const btnFavorites = document.querySelector(`#fav-${id}`);
-			btnFavorites.addEventListener('click', () => this.addGifFavorites(validatePage));
+			const btnFavorites = document.querySelectorAll(`.fav-${id}`);
+			btnFavorites.forEach((btn) => {
+				btn.addEventListener('click', () => this.addGifFavorites(validatePage));
+			});
 		});
+	},
+	getIdsGifsContainer(gifsNodes) {
+		const gifsId = [];
+
+		gifsNodes.forEach((item) => {
+			gifsId.push(item.classList[0].replace('gifId-', ''));
+		});
+
+		return gifsId;
+	},
+	/**
+	 * @description Recargar gifs cuando está en la página de Favoritos
+	 * @param favGifs - lista de gifs que el usuario tiene en favoritos - type: Array
+	 */
+	reloadPageGif(favGifs, gifId) {
+		// debugger;
+		let gifsContainer = document.querySelectorAll('#gifs-results .gif-container');
+		// Si al eliminar un gif existen mas de lo que se muestran.. agrega el siguiente
+		let templateGifs = containerGifs.innerHTML;
+
+		const gifRemove = document.querySelector(`#gifs-results .gifId-${gifId}`) || null;
+		if (favGifs.length <= gifsContainer.length || !!gifRemove) {
+			if (!!gifRemove) gifRemove.remove();
+		}
+
+		gifsContainer = document.querySelectorAll('#gifs-results .gif-container');
+		if (favGifs.length > gifsContainer.length) {
+			templateGifs = containerGifs.innerHTML;
+			if (gifsContainer.length % 12 !== 0) templateGifs += this.maskGifs(favGifs[gifsContainer.length]);
+			containerGifs.innerHTML = templateGifs;
+		}
+
+		const gifs = document.querySelectorAll('#gifs-results .gif-container');
+		const gifsId = this.getIdsGifsContainer(gifs);
+		this.addEventFavorites(gifsId, true);
+
+		this.setTotalGifs(gifs.length);
+		favGifs.length > gifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 	},
 	/**
 	 * @description Agregar gif a favoritos
@@ -44,31 +88,35 @@ export default {
 	addGifFavorites(validatePage = false) {
 		if (validateEvent) {
 			validateEvent = false;
-			const gifId = event.target.id.replace('fav-', '');
-			const iconGif = document.querySelector(`#fav-${gifId}`);
+			const gifId = event.target.classList[0].replace('fav-', '');
+			const iconsGif = document.querySelectorAll(`.fav-${gifId}`);
 
 			api.getApiGifByID(gifId)
 				.then((res) => {
 					const { data } = res;
 					const favorites = api.getAllFavoritesLocal();
-
+					let iconFav = '';
 					// Se valida si el Gif ya se encuentra en favoritos - si se encuentra lo quita.. si no lo agrega...
 					if (favorites.some((fav) => fav.id === gifId)) {
 						this.removeItemObjFromArr(favorites, gifId);
-						iconGif.innerText = 'favorite_border';
+						iconFav = 'favorite_border';
 					} else {
 						favorites.push(data);
-						iconGif.innerText = 'favorite';
+						iconFav = 'favorite';
 					}
+					// cambiar los iconos de los gifs
+					iconsGif.forEach((btnFav) => {
+						btnFav.innerText = iconFav;
+					});
 
 					api.setFavoritesLocal(favorites);
 
-					if (validatePage) document.querySelector(`#gifId-${gifId}`).remove();
-					// Si NO se tienen mas gifs oculta el boton ver mas...
-					favorites.length > 12 ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
+					// if (validatePage) {
+					// 	document.querySelector(`.gifId-${gifId}`).remove();
+					// }
 
 					// Mostrar secciona de data o sin data en Favoritos
-					if (window.location.pathname == '/favoritos.html') {
+					if (window.location.pathname == '/views/favoritos.html') {
 						if (favorites.length) {
 							sectionGifs.classList.add('active-data');
 							sectionGifs.classList.remove('active-no-data');
@@ -76,6 +124,11 @@ export default {
 							sectionGifs.classList.add('active-no-data');
 							sectionGifs.classList.remove('active-data');
 						}
+
+						this.reloadPageGif(favorites, gifId);
+					} else {
+						// Si NO se tienen mas gifs oculta el boton ver mas...
+						favorites.length > 12 ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 					}
 				})
 				.catch((err) => {
@@ -93,18 +146,17 @@ export default {
 			.then((res) => {
 				const { data } = res;
 
-				api.getApiGifDownlodad(data.images.original.hash)
-					.then((res) => {
-						console.log(res);
-						const file = res;
-						a.download = 'myGif';
-						a.href = window.URL.createObjectURL(file);
-						a.dataset.downloadurl = ['application/octet-stream', a.download, a.href].join(':');
-						a.click();
-					})
-					.catch((err) => {
-						console.warn('Error al hacer la petición downloadGif en la API: ', err);
-					});
+				// api.getApiGifDownlodad(data.images.original.url)
+				// 	.then((res) => {
+				// const anchor = document.createElement('a');
+				// anchor.href = data.images.original.url;
+				// anchor.download = data.images.original.url;
+				// document.body.appendChild(anchor);
+				// anchor.click();
+				// })
+				// .catch((err) => {
+				// 	console.warn('Error al hacer la petición downloadGif en la API: ', err);
+				// });
 			})
 			.catch((err) => {
 				console.log('Error al hacer la petición getApiGifByID en la API: ', err);

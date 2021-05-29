@@ -42,7 +42,8 @@ const handleDataTrending = (optionArrow = 'left', scroll = false) => {
 
 				containerTrending.innerHTML = templateGifs;
 				// Agregamos eventos a los botones de accion de los GIFS...
-				gif.addEventFavorites(gidsIds);
+				const validateRout = window.location.pathname == '/views/favoritos.html' ? true : false;
+				gif.addEventFavorites(gidsIds, validateRout);
 				addEventDownloadGif();
 				// Ocultamos las flechas
 				optionArrow === 'left' && totalGifs <= 3 ? btnLeft.setAttribute('style', 'display: none') : btnLeft.setAttribute('style', '');
