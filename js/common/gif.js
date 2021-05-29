@@ -5,7 +5,13 @@ const btnSeeMore = document.querySelector('#btn-see-more');
 let validateEvent = true;
 
 export default {
+	/**
+	 * @description Total de Gifs visibles en la seccion de favoritos
+	 */
 	totalGifs: 0,
+	/**
+	 * @description Actualziar el total de Gifs visibles en la seccion de favoritos
+	 */
 	setTotalGifs(totalGifs) {
 		this.totalGifs = totalGifs;
 	},
@@ -43,6 +49,10 @@ export default {
 			});
 		});
 	},
+	/**
+	 * @description Obtener ids de los elementos gifs que estan visibles en la pagina
+	 * @param gifsNodes - Lista de elementos(GIFS - html) - type: Array
+	 */
 	getIdsGifsContainer(gifsNodes) {
 		const gifsId = [];
 
