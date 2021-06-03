@@ -247,6 +247,7 @@ body {
 	}
 
 	.content-arrow-left {
+		margin: 20px;
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
@@ -257,6 +258,7 @@ body {
 	}
 
 	.content-arrow-right {
+		margin: 20px;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
@@ -270,10 +272,10 @@ body {
 		position: relative;
 		z-index: 1;
 		display: flex;
-		justify-content: space-around;
 		align-items: center;
 		padding: 0;
 		overflow: hidden;
+		scroll-behavior: smooth;
 
 		@include media(sm) {
 			display: block;
@@ -283,9 +285,9 @@ body {
 		}
 
 		.gif-container {
-			margin: 0;
-			width: 30%;
-			min-width: 200px;
+			min-width: 32%;
+			margin: 0 20px 0 0;
+			transition: 0.5s;
 
 			@include media(sm) {
 				display: inline-block;

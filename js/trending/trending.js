@@ -4,33 +4,24 @@ import gif from '../common/gif.js';
 const containerTrending = document.querySelector('#gifs-trending');
 const btnLeft = document.querySelector('#btn-arrow-left');
 const btnRight = document.querySelector('#btn-arrow-right');
-let totalGifs = 0;
+let gidsIds = [];
+let offset = 2;
 
 //? FUNCTIONS ****************
 /**
  * @description Trayendo gifs trending
  */
 const handleDataTrending = (optionArrow = 'left', scroll = false) => {
-	let offset = totalGifs || 0;
-	const limit = scroll ? 12 : 3;
-
-	if (optionArrow === 'left' && totalGifs > 0) {
-		totalGifs -= 3;
-		offset = totalGifs - 3;
-	}
-
-	api.getApiTrending(limit, offset)
+	api.getApiTrending(36, 0)
 		.then((res) => {
 			const { data, pagination } = res;
-			if (!scroll) containerTrending.innerHTML = '';
+			containerTrending.innerHTML = '';
 
 			if (data.length) {
-				// Guardando la data que ya se buscó
-				if (optionArrow == 'right' || totalGifs == 0) totalGifs += data.length;
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
 				let templateGifs = containerTrending.innerHTML;
-				const gidsIds = [];
+				gidsIds = [];
 
 				data.forEach((item) => {
 					gidsIds.push(item.id);
@@ -41,13 +32,13 @@ const handleDataTrending = (optionArrow = 'left', scroll = false) => {
 				});
 
 				containerTrending.innerHTML = templateGifs;
+
+				btnLeft.setAttribute('style', 'display: none');
+
 				// Agregamos eventos a los botones de accion de los GIFS...
 				const validateRout = window.location.pathname == '/views/favoritos.html' ? true : false;
 				gif.addEventFavorites(gidsIds, validateRout);
 				addEventDownloadGif();
-				// Ocultamos las flechas
-				optionArrow === 'left' && totalGifs <= 3 ? btnLeft.setAttribute('style', 'display: none') : btnLeft.setAttribute('style', '');
-				optionArrow === 'right' && totalGifs > pagination.total_count ? btnRight.setAttribute('style', 'display: none') : btnRight.setAttribute('style', '');
 			}
 		})
 		.catch((err) => {
@@ -63,13 +54,29 @@ const addEventDownloadGif = () => {
 	});
 };
 
-//? EVENTS *******************
-btnLeft.addEventListener('click', () => handleDataTrending('left'));
-btnRight.addEventListener('click', () => handleDataTrending('right'));
-containerTrending.addEventListener('scroll', () => {
-	if (containerTrending.offsetWidth + containerTrending.scrollLeft >= containerTrending.scrollWidth) {
-		handleDataTrending('right', true);
+const rightMove = () => {
+	btnLeft.setAttribute('style', '');
+	offset += 1;
+	document.querySelector(`.gifId-${gidsIds[offset]}`).scrollIntoView();
+	if (offset == 35) {
+		offset = 33;
+		btnRight.setAttribute('style', 'display: none');
 	}
-});
+};
+const leftMove = () => {
+	btnRight.setAttribute('style', '');
+	offset -= 3;
+	document.querySelector(`.gifId-${gidsIds[offset]}`).scrollIntoView();
+	if (offset == 0) {
+		offset = 2;
+		btnLeft.setAttribute('style', 'display: none');
+	} else {
+		offset += 2;
+	}
+};
+
+//? EVENTS *******************
+btnLeft.addEventListener('click', leftMove);
+btnRight.addEventListener('click', rightMove);
 
 handleDataTrending();

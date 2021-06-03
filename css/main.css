@@ -397,6 +397,7 @@ body {
 }
 
 .list-gifs .content-arrow-left {
+  margin: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -415,6 +416,7 @@ body {
 }
 
 .list-gifs .content-arrow-right {
+  margin: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -438,13 +440,12 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   padding: 0;
   overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 @media (max-width: 767px) {
@@ -457,9 +458,10 @@ body {
 }
 
 .list-gifs #gifs-trending .gif-container {
-  margin: 0;
-  width: 30%;
-  min-width: 200px;
+  min-width: 32%;
+  margin: 0 20px 0 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 @media (max-width: 767px) {

@@ -20,8 +20,11 @@ export default {
 	 */
 	maskGifs(gif, iconFav = 'favorite') {
 		return `
-			<div class="gifId-${gif.id} gif-container">
-				<img class="gif" src="${gif.images.fixed_height.url}"></img>
+			<div class="gifId-${gif.id} gif-container" data-target="gif">
+				<video class="gif" height="${gif.images.fixed_height.height}" autoplay loop muted playsinline>
+					<source src="${gif.images.fixed_height.mp4}" type="video/mp4">
+					Gif...
+				</video>
 				<div class="hover-gif">
 					<div class="gif-actions">
 						<i class="fav-${gif.id} material-icons btn-favorites">${iconFav}</i>
