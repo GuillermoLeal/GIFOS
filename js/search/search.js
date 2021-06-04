@@ -68,7 +68,7 @@ const handleDataSearch = (seeMore = false) => {
 				totalGifs += data.length;
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
-				let templateGifs = containerGifsSearch.innerHTML;
+				let templateGifs = '';
 				const gifsId = [];
 
 				data.forEach((item) => {
@@ -79,7 +79,7 @@ const handleDataSearch = (seeMore = false) => {
 					templateGifs += gif.maskGifs(item, iconFav);
 				});
 				// Pintar los gifs
-				containerGifsSearch.innerHTML = templateGifs;
+				containerGifsSearch.insertAdjacentHTML('beforeend', templateGifs);
 
 				// Agregamos eventos a los botones de accion de los GIFS...
 				gif.addEventFavorites(gifsId);

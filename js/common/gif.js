@@ -42,13 +42,12 @@ export default {
 	/**
 	 * @description Agregar Evento de añadir gif a favoritos
 	 * @param ids - id de los gifs los cuales se le agregara el evento al boton de favoritos - type: Array
-	 * @param validatePage - validar si se encuentra en la ruta de favoritos, si es asi elimina el item de la vista - type: Boolean
 	 */
-	addEventFavorites(ids, validatePage = false) {
+	addEventFavorites(ids) {
 		ids.forEach((id) => {
 			const btnFavorites = document.querySelectorAll(`.fav-${id}`);
 			btnFavorites.forEach((btn) => {
-				btn.addEventListener('click', () => this.addGifFavorites(validatePage));
+				btn.addEventListener('click', () => this.addGifFavorites());
 			});
 		});
 	},
@@ -108,9 +107,8 @@ export default {
 	},
 	/**
 	 * @description Agregar gif a favoritos
-	 * @param validatePage - validar si se encuentra en la ruta de favoritos, si es asi elimina el item de la vista - type: Boolean
 	 */
-	addGifFavorites(validatePage = false) {
+	addGifFavorites() {
 		if (validateEvent) {
 			validateEvent = false;
 			const gifId = event.target.classList[0].replace('fav-', '');
@@ -136,10 +134,6 @@ export default {
 
 					api.setFavoritesLocal(favorites);
 
-					// if (validatePage) {
-					// 	document.querySelector(`.gifId-${gifId}`).remove();
-					// }
-
 					// Mostrar secciona de data o sin data en Favoritos
 					if (window.location.pathname == '/views/favoritos.html') {
 						if (favorites.length) {
@@ -151,9 +145,6 @@ export default {
 						}
 
 						this.reloadPageGif(favorites, gifId);
-					} else {
-						// Si NO se tienen mas gifs oculta el boton ver mas...
-						favorites.length > 12 ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 					}
 				})
 				.catch((err) => {

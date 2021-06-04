@@ -20,7 +20,7 @@ const handleDataTrending = () => {
 			if (data.length) {
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
-				let templateGifs = containerTrending.innerHTML;
+				let templateGifs = '';
 				gifsId = [];
 
 				data.forEach((item) => {
@@ -31,12 +31,11 @@ const handleDataTrending = () => {
 					templateGifs += gif.maskGifs(item, iconFav);
 				});
 				// Pintar los gifs
-				containerTrending.innerHTML = templateGifs;
+				containerTrending.insertAdjacentHTML('beforeend', templateGifs);
 
 				btnLeft.setAttribute('style', 'display: none');
 				// Agregamos eventos a los botones de accion de los GIFS...
-				const validateRout = window.location.pathname == '/views/favoritos.html' ? true : false;
-				gif.addEventFavorites(gifsId, validateRout);
+				gif.addEventFavorites(gifsId);
 				gif.addEventDownloadGif(gifsId);
 			}
 		})

@@ -20,8 +20,7 @@ const handleDataFav = (seeMore = false) => {
 	const gifFav = api.getPageFavoritesLocal(12, offset);
 	const totalAllGifs = api.getAllFavoritesLocal();
 
-	let templateGifs = containerGifs.innerHTML;
-
+	let templateGifs = '';
 	const gifsId = [];
 
 	gifFav.forEach((item) => {
@@ -29,13 +28,13 @@ const handleDataFav = (seeMore = false) => {
 		templateGifs += gif.maskGifs(item);
 	});
 	// Pintar los gifs
-	containerGifs.innerHTML = templateGifs;
+	containerGifs.insertAdjacentHTML('beforeend', templateGifs);
 
 	// gif.totalGifs += document.querySelectorAll('#gifs-results .gif-container').length;
 	gif.setTotalGifs(document.querySelectorAll('#gifs-results .gif-container').length);
 
 	// Agregamos eventos a los botones de accion de los GIFS...
-	gif.addEventFavorites(gifsId, true);
+	gif.addEventFavorites(gifsId);
 	gif.addEventDownloadGif(gifsId);
 	// Si NO se tienen mas gifs oculta el boton ver mas...
 	gif.totalGifs < totalAllGifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
