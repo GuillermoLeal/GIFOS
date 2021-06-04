@@ -4,14 +4,14 @@ import gif from '../common/gif.js';
 const containerTrending = document.querySelector('#gifs-trending');
 const btnLeft = document.querySelector('#btn-arrow-left');
 const btnRight = document.querySelector('#btn-arrow-right');
-let gidsIds = [];
+let gifsId = [];
 let offset = 2;
 
 //? FUNCTIONS ****************
 /**
  * @description Trayendo gifs trending
  */
-const handleDataTrending = (optionArrow = 'left', scroll = false) => {
+const handleDataTrending = () => {
 	api.getApiTrending(36, 0)
 		.then((res) => {
 			const { data, pagination } = res;
@@ -21,24 +21,23 @@ const handleDataTrending = (optionArrow = 'left', scroll = false) => {
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
 				let templateGifs = containerTrending.innerHTML;
-				gidsIds = [];
+				gifsId = [];
 
 				data.forEach((item) => {
-					gidsIds.push(item.id);
+					gifsId.push(item.id);
 					// Si se encuentra en favoritos cambia el icono del gif
 					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
 					// Usamos el metodo para pintar los GIFS
 					templateGifs += gif.maskGifs(item, iconFav);
 				});
-
+				// Pintar los gifs
 				containerTrending.innerHTML = templateGifs;
 
 				btnLeft.setAttribute('style', 'display: none');
-
 				// Agregamos eventos a los botones de accion de los GIFS...
 				const validateRout = window.location.pathname == '/views/favoritos.html' ? true : false;
-				gif.addEventFavorites(gidsIds, validateRout);
-				addEventDownloadGif();
+				gif.addEventFavorites(gifsId, validateRout);
+				gif.addEventDownloadGif(gifsId);
 			}
 		})
 		.catch((err) => {
@@ -46,27 +45,25 @@ const handleDataTrending = (optionArrow = 'left', scroll = false) => {
 		});
 };
 
-const addEventDownloadGif = () => {
-	const btnDownload = document.querySelectorAll('.btn-download');
-
-	btnDownload.forEach((item) => {
-		item.addEventListener('click', () => gif.downloadGif());
-	});
-};
-
+/**
+ * @description Mover a la derecha el carrusel de trending
+ */
 const rightMove = () => {
 	btnLeft.setAttribute('style', '');
 	offset += 1;
-	document.querySelector(`.gifId-${gidsIds[offset]}`).scrollIntoView();
+	document.querySelector(`.gifId-${gifsId[offset]}`).scrollIntoView();
 	if (offset == 35) {
 		offset = 33;
 		btnRight.setAttribute('style', 'display: none');
 	}
 };
+/**
+ * @description Mover a la izquierda el carrusel de trending
+ */
 const leftMove = () => {
 	btnRight.setAttribute('style', '');
 	offset -= 3;
-	document.querySelector(`.gifId-${gidsIds[offset]}`).scrollIntoView();
+	document.querySelector(`.gifId-${gifsId[offset]}`).scrollIntoView();
 	if (offset == 0) {
 		offset = 2;
 		btnLeft.setAttribute('style', 'display: none');

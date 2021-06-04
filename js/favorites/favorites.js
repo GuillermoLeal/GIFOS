@@ -22,33 +22,25 @@ const handleDataFav = (seeMore = false) => {
 
 	let templateGifs = containerGifs.innerHTML;
 
-	const gifsIds = [];
+	const gifsId = [];
 
 	gifFav.forEach((item) => {
-		gifsIds.push(item.id);
+		gifsId.push(item.id);
 		templateGifs += gif.maskGifs(item);
 	});
-
+	// Pintar los gifs
 	containerGifs.innerHTML = templateGifs;
 
 	// gif.totalGifs += document.querySelectorAll('#gifs-results .gif-container').length;
 	gif.setTotalGifs(document.querySelectorAll('#gifs-results .gif-container').length);
 
 	// Agregamos eventos a los botones de accion de los GIFS...
-	gif.addEventFavorites(gifsIds, true);
-	addEventDownloadGif();
+	gif.addEventFavorites(gifsId, true);
+	gif.addEventDownloadGif(gifsId);
 	// Si NO se tienen mas gifs oculta el boton ver mas...
 	gif.totalGifs < totalAllGifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 
 	showSectionSearch(gifFav.length ? true : false);
-};
-
-const addEventDownloadGif = () => {
-	const btnDownload = document.querySelectorAll('.btn-download');
-
-	btnDownload.forEach((item) => {
-		item.addEventListener('click', () => gif.downloadGif());
-	});
 };
 
 /**

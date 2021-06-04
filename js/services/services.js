@@ -96,9 +96,21 @@ export default {
 	},
 	/**
 	 * @description Almacenar los favoritos del usuario
-	 * @param Array - array que se agregará en el localStorage de 'favoritos'
+	 * @param Array - array que se agregará en el localStorage de 'favoritos' - type: Array
 	 */
 	setFavoritesLocal(array) {
 		localStorage.setItem('favorites', JSON.stringify(array));
+	},
+	/**
+	 * @description Obtener el gif a descargar
+	 * @param Url - url del gif para descargar - type: String
+	 */
+	downloadGif(url) {
+		return new Promise((resolve, reject) => {
+			fetch(url)
+				.then((res) => res)
+				.then((data) => resolve(data))
+				.catch((err) => reject(err));
+		});
 	},
 };

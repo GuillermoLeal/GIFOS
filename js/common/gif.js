@@ -27,9 +27,9 @@ export default {
 				</video>
 				<div class="hover-gif">
 					<div class="gif-actions">
-						<i class="fav-${gif.id} material-icons btn-favorites">${iconFav}</i>
-						<i class="download-${gif.id} material-icons btn-download">save_alt</i>
-						<i class="material-icons btn-show">open_in_full</i>
+						<i class="fav-${gif.id} material-icons">${iconFav}</i>
+						<i class="download-${gif.id} material-icons">save_alt</i>
+						<i class="show-${gif.id} material-icons">open_in_full</i>
 					</div>
 					<div class="gif-info">
 						<p class="gif-user">${gif.username}</p>
@@ -49,6 +49,18 @@ export default {
 			const btnFavorites = document.querySelectorAll(`.fav-${id}`);
 			btnFavorites.forEach((btn) => {
 				btn.addEventListener('click', () => this.addGifFavorites(validatePage));
+			});
+		});
+	},
+	/**
+	 * @description Agregar Evento de descargar el gif
+	 * @param ids - id de los gifs los cuales se le agregara el evento al boton de descarga - type: Array
+	 */
+	addEventDownloadGif(ids) {
+		ids.forEach((id) => {
+			const btnDownloads = document.querySelectorAll(`.download-${id}`);
+			btnDownloads.forEach((btn) => {
+				btn.addEventListener('click', () => this.downloadGif());
 			});
 		});
 	},
@@ -152,27 +164,36 @@ export default {
 				});
 		}
 	},
+
 	downloadGif() {
-		const gifId = event.target.id.replace('download-', '');
+		const gifId = event.target.classList[0].replace('download-', '');
 
 		api.getApiGifByID(gifId)
 			.then((res) => {
 				const { data } = res;
-
-				// api.getApiGifDownlodad(data.images.original.url)
-				// 	.then((res) => {
-				// const anchor = document.createElement('a');
-				// anchor.href = data.images.original.url;
-				// anchor.download = data.images.original.url;
-				// document.body.appendChild(anchor);
-				// anchor.click();
-				// })
-				// .catch((err) => {
-				// 	console.warn('Error al hacer la petición downloadGif en la API: ', err);
-				// });
+				// Obtener el gif a descargar
+				api.downloadGif(data.images.original.url)
+					.then((response) => {
+						// Crear el descargable
+						response
+							.blob()
+							.then((file) => {
+								const a = document.createElement('a');
+								a.download = data.id;
+								a.href = window.URL.createObjectURL(file);
+								a.dataset.downloadurl = ['application/octet-stream', a.download, a.href].join(':');
+								a.click();
+							})
+							.catch((err) => {
+								console.error('Error al crear descargable: ', err);
+							});
+					})
+					.catch((err) => {
+						console.error('Error al descargar el gif: ', err);
+					});
 			})
 			.catch((err) => {
-				console.log('Error al hacer la petición getApiGifByID en la API: ', err);
+				console.error('Error al hacer la petición getApiGifByID en la API: ', err);
 			});
 	},
 	/**

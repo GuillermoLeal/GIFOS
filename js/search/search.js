@@ -69,20 +69,21 @@ const handleDataSearch = (seeMore = false) => {
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
 				let templateGifs = containerGifsSearch.innerHTML;
-				const gifsIds = [];
+				const gifsId = [];
 
 				data.forEach((item) => {
-					gifsIds.push(item.id);
+					gifsId.push(item.id);
 					// Si se encuentra en favoritos cambia el icono del gif
 					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
 					// Usamos el metodo para pintar los GIFS
 					templateGifs += gif.maskGifs(item, iconFav);
 				});
-
+				// Pintar los gifs
 				containerGifsSearch.innerHTML = templateGifs;
+
 				// Agregamos eventos a los botones de accion de los GIFS...
-				gif.addEventFavorites(gifsIds);
-				addEventDownloadGif();
+				gif.addEventFavorites(gifsId);
+				gif.addEventDownloadGif(gifsId);
 				// Si NO se tienen mas gifs oculta el boton ver mas...
 				totalGifs < pagination.total_count ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 			}
@@ -104,14 +105,6 @@ const addEventAutocomplete = () => {
 
 	itemsListAutocomplete.forEach((item) => {
 		item.addEventListener('click', handleSearchByAutocomplete);
-	});
-};
-
-const addEventDownloadGif = () => {
-	const btnDownload = document.querySelectorAll('.btn-download');
-
-	btnDownload.forEach((item) => {
-		item.addEventListener('click', () => gif.downloadGif());
 	});
 };
 
