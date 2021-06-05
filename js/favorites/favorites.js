@@ -13,7 +13,6 @@ let dataGifs = [];
  * @param seeMore - Si el evento viene del boton "ver mas" - type: Boolean
  */
 const handleDataFav = (seeMore = false) => {
-	// debugger;
 	if (!seeMore) {
 		gif.setTotalGifs(0);
 		dataGifs = [];

@@ -54,7 +54,7 @@ const rightMove = () => {
 	gifs[gifs.length > 1 ? 1 : 0].scrollIntoView();
 
 	if (offset == 35) {
-		offset = 33;
+		// offset = 33;
 		btnRight.setAttribute('style', 'display: none');
 	}
 };

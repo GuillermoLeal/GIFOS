@@ -46,7 +46,7 @@ export default {
 	 */
 	maskGifFullScreen(gif, iconFav = 'heart') {
 		return `
-			<i id="close-modal" class="close-modal icon-clear">clear</i>
+			<i id="close-modal" class="close-modal icon-close"></i>
 			<div class="view-gif-max">
 				<div class="content-arrow-left">
 					<div id="btn-arrow-left-max" class="btn-arrow-left">
@@ -72,7 +72,7 @@ export default {
 				</div>
 				<div class="content-arrow-right">
 					<div id="btn-arrow-right-max" class="btn-arrow-right">
-						<i class="icon-arrow-roght"></i>
+						<i class="icon-arrow-right"></i>
 					</div>
 				</div>
 			</div>
@@ -118,44 +118,36 @@ export default {
 		});
 	},
 	/**
-	 * @description Obtener ids de los elementos gifs que estan visibles en la pagina
-	 * @param gifsNodes - Lista de elementos(GIFS - html) - type: Array
+	 * @description Obtener los elementos gifs que estan visibles en la pagina
 	 */
-	getIdsGifsContainer(gifsNodes) {
-		const gifsId = [];
-
-		gifsNodes.forEach((item) => {
-			gifsId.push(item.classList[0].replace('gifId-', ''));
-		});
-
-		return gifsId;
+	getGifsContainer() {
+		return document.querySelectorAll('#gifs-results .gif-container');
 	},
 	/**
 	 * @description Recargar gifs cuando está en la página de Favoritos
 	 * @param favGifs - lista de gifs que el usuario tiene en favoritos - type: Array
+	 * @param gifId - gif que se seleccionó - type: String - Number
 	 */
 	reloadPageGif(favGifs, gifId) {
-		// debugger;
-		let gifsContainer = document.querySelectorAll('#gifs-results .gif-container');
-		// Si al eliminar un gif existen mas de lo que se muestran.. agrega el siguiente
-		let templateGifs = containerGifs.innerHTML;
-
+		let gifsContainer = this.getGifsContainer();
 		const gifRemove = document.querySelector(`#gifs-results .gifId-${gifId}`) || null;
 		if (favGifs.length <= gifsContainer.length || !!gifRemove) {
 			if (!!gifRemove) gifRemove.remove();
 		}
 
-		gifsContainer = document.querySelectorAll('#gifs-results .gif-container');
-		if (favGifs.length > gifsContainer.length) {
-			templateGifs = containerGifs.innerHTML;
-			if (gifsContainer.length % 12 !== 0 || gifsContainer.length == 0) templateGifs += this.maskGifs(favGifs[gifsContainer.length]);
-			containerGifs.innerHTML = templateGifs;
+		// Si al eliminar un gif existen mas de lo que se muestran.. agrega el siguiente
+		gifsContainer = this.getGifsContainer();
+		if (favGifs.length > gifsContainer.length && (gifsContainer.length % 12 !== 0 || gifsContainer.length == 0)) {
+			const gifNew = favGifs[gifsContainer.length];
+			const templateGifs = this.maskGifs(gifNew);
+			containerGifs.insertAdjacentHTML('beforeend', templateGifs);
+			// agregar evento al gif que se agrego
+			this.addEventFavorites([gifNew.id], true);
+			this.addEventDownloadGif([gifNew.id]);
+			this.addEventFullScreenGif(favGifs);
 		}
 
-		const gifs = document.querySelectorAll('#gifs-results .gif-container');
-		const gifsId = this.getIdsGifsContainer(gifs);
-		this.addEventFavorites(gifsId, true);
-
+		const gifs = this.getGifsContainer();
 		this.setTotalGifs(gifs.length);
 		favGifs.length > gifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 	},
