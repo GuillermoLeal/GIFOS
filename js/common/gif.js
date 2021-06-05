@@ -267,8 +267,6 @@ export default {
 					modal.innerHTML = this.maskGifFullScreen(data, iconFav);
 
 					this.addEventChangeGif(arrGifs);
-					this.addEventFavorites([data.id]);
-					this.addEventDownloadGif([data.id]);
 				})
 				.catch((err) => {
 					console.error('Error al hacer la petición getApiGifByID en la API: ', err);
@@ -314,6 +312,8 @@ export default {
 		const iconFav = gifsFav.some((fav) => fav.id === arrGifs[positionGif].id) ? 'favorite' : 'favorite_border';
 		modal.innerHTML = this.maskGifFullScreen(arrGifs[positionGif], iconFav);
 		this.addEventChangeGif(arrGifs);
+		this.addEventFavorites([arrGifs[positionGif].id]);
+		this.addEventDownloadGif([arrGifs[positionGif].id]);
 	},
 	/**
 	 * @description Cerrar modal del gif
