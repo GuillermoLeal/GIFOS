@@ -282,7 +282,7 @@ export default {
 	 * @description Agregar eventos a los botones de ver el gif en tamaño original
 	 * @param arrGifs - lista de gifs - type: Array
 	 */
-	addEventChangeGif(arrGifs, gif) {
+	addEventChangeGif(arrGifs) {
 		// Evento cerrar el modal
 		document.querySelector('#close-modal').addEventListener('click', this.closeModal);
 		// Agregamos el evento de cambiar gif al modal ver gif en tamaño original
