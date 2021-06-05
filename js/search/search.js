@@ -17,6 +17,7 @@ const containerGifsSearch = document.querySelector('#gifs-results');
 const titleSearch = document.querySelector('#title-search');
 // data
 let totalGifs = 0;
+let dataGifs = [];
 
 //? FUNCTIONS ****************
 /**
@@ -53,7 +54,10 @@ const handleDataAutocomplete = () => {
  * @param seeMore - Si el evento viene del boton "ver mas" - type: Boolean
  */
 const handleDataSearch = (seeMore = false) => {
-	if (!seeMore) totalGifs = 0;
+	if (!seeMore) {
+		totalGifs = 0;
+		dataGifs = [];
+	}
 	const search = searchInput.value;
 	const offset = totalGifs || 0;
 	titleSearch.innerText = search.toUpperCase();
@@ -69,10 +73,9 @@ const handleDataSearch = (seeMore = false) => {
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
 				let templateGifs = '';
-				const gifsId = [];
 
 				data.forEach((item) => {
-					gifsId.push(item.id);
+					dataGifs.push(item);
 					// Si se encuentra en favoritos cambia el icono del gif
 					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
 					// Usamos el metodo para pintar los GIFS
@@ -82,8 +85,9 @@ const handleDataSearch = (seeMore = false) => {
 				containerGifsSearch.insertAdjacentHTML('beforeend', templateGifs);
 
 				// Agregamos eventos a los botones de accion de los GIFS...
-				gif.addEventFavorites(gifsId);
-				gif.addEventDownloadGif(gifsId);
+				gif.addEventFavorites(dataGifs.map((i) => i.id));
+				gif.addEventDownloadGif(dataGifs.map((i) => i.id));
+				gif.addEventFullScreenGif(dataGifs);
 				// Si NO se tienen mas gifs oculta el boton ver mas...
 				totalGifs < pagination.total_count ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 			}

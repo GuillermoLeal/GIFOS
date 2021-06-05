@@ -287,7 +287,6 @@ body {
 		.gif-container {
 			min-width: 32%;
 			margin: 0 20px 0 0;
-			transition: 0.5s;
 
 			@include media(sm) {
 				display: inline-block;

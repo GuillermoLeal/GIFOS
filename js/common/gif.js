@@ -2,7 +2,9 @@ import api from '../services/services.js';
 const sectionGifs = document.querySelector('#gifs-section');
 const containerGifs = document.querySelector('#gifs-results');
 const btnSeeMore = document.querySelector('#btn-see-more');
+const containerGifInfo = document.querySelector('#view-gif');
 let validateEvent = true;
+let positionGif = 0;
 
 export default {
 	/**
@@ -40,6 +42,28 @@ export default {
 		`;
 	},
 	/**
+	 * @description pintar la informacion del gif en tamaño original
+	 */
+	maskGifFullScreen(gif, iconFav = 'favorite') {
+		return `
+			<video class="gif" autoplay="" loop="" muted="" playsinline="">
+				<source src="${gif.images.fixed_height.mp4}" type="video/mp4" />
+				Gif...
+			</video>
+			<div class="gif-container-max">
+				<div class="gif-info-max">
+					<p class="gif-user">${gif.username}</p>
+					<p class="gif-title">${gif.title}</p>
+				</div>
+
+				<div class="gif-action-max">
+					<i class="fav-${gif.id} material-icons">${iconFav}</i>
+					<i class="download-${gif.id} material-icons">save_alt</i>
+				</div>
+			</div>
+		`;
+	},
+	/**
 	 * @description Agregar Evento de añadir gif a favoritos
 	 * @param ids - id de los gifs los cuales se le agregara el evento al boton de favoritos - type: Array
 	 */
@@ -60,6 +84,21 @@ export default {
 			const btnDownloads = document.querySelectorAll(`.download-${id}`);
 			btnDownloads.forEach((btn) => {
 				btn.addEventListener('click', () => this.downloadGif());
+			});
+		});
+	},
+	/**
+	 * @description Agregar Evento de descargar el gif
+	 * @param ids - id de los gifs los cuales se le agregara el evento al boton de descarga - type: Array
+	 * @param arrGifs - marcar de que seccion se le dio click al gif - type: String
+	 */
+	addEventFullScreenGif(arrGifs) {
+		const ids = arrGifs.map((i) => i.id);
+
+		ids.forEach((id) => {
+			const btnDownloads = document.querySelectorAll(`.show-${id}`);
+			btnDownloads.forEach((btn) => {
+				btn.addEventListener('click', () => this.fullScreenGif(arrGifs));
 			});
 		});
 	},
@@ -94,7 +133,7 @@ export default {
 		gifsContainer = document.querySelectorAll('#gifs-results .gif-container');
 		if (favGifs.length > gifsContainer.length) {
 			templateGifs = containerGifs.innerHTML;
-			if (gifsContainer.length % 12 !== 0) templateGifs += this.maskGifs(favGifs[gifsContainer.length]);
+			if (gifsContainer.length % 12 !== 0 || gifsContainer.length == 0) templateGifs += this.maskGifs(favGifs[gifsContainer.length]);
 			containerGifs.innerHTML = templateGifs;
 		}
 
@@ -155,7 +194,9 @@ export default {
 				});
 		}
 	},
-
+	/**
+	 * @description Descargar el gif
+	 */
 	downloadGif() {
 		const gifId = event.target.classList[0].replace('download-', '');
 
@@ -186,6 +227,67 @@ export default {
 			.catch((err) => {
 				console.error('Error al hacer la petición getApiGifByID en la API: ', err);
 			});
+	},
+	/**
+	 * @description Mostrar gif en tamñano original
+	 */
+	fullScreenGif(arrGifs) {
+		if (validateEvent) {
+			validateEvent = false;
+			const gifId = event.target.classList[0].replace('show-', '');
+
+			api.getApiGifByID(gifId)
+				.then((res) => {
+					const { data } = res;
+
+					positionGif = arrGifs.map((item) => item.id).indexOf(data.id);
+
+					document.querySelector('#modal').classList.remove('modal-closed');
+					document.body.style.overflow = 'hidden'; // quitar el scroll
+					document.querySelector('#close-modal').addEventListener('click', this.closeModal);
+					// Agregamos el evento de cambiar gif al modal
+					document.querySelector('#btn-arrow-left-max').addEventListener('click', () => this.reloadGifFullScreen(arrGifs, true));
+					document.querySelector('#btn-arrow-right-max').addEventListener('click', () => this.reloadGifFullScreen(arrGifs, false));
+
+					// Pintar la info del gif
+					const gifsFav = api.getAllFavoritesLocal();
+					const iconFav = gifsFav.some((fav) => fav.id === data.id) ? 'favorite' : 'favorite_border';
+
+					containerGifInfo.innerHTML = this.maskGifFullScreen(data, iconFav);
+
+					this.addEventFavorites([data.id]);
+					this.addEventDownloadGif([data.id]);
+				})
+				.catch((err) => {
+					console.error('Error al hacer la petición getApiGifByID en la API: ', err);
+				})
+				.finally(() => {
+					validateEvent = false;
+				});
+		}
+	},
+	reloadGifFullScreen(arrGifs, direction) {
+		if (direction) {
+			if (positionGif == 0) {
+				positionGif = arrGifs.length - 1;
+			} else {
+				positionGif--;
+			}
+		} else {
+			if (positionGif == arrGifs.length - 1) {
+				positionGif = 0;
+			} else {
+				positionGif++;
+			}
+		}
+		containerGifInfo.innerHTML = this.maskGifFullScreen(arrGifs[positionGif]);
+	},
+	/**
+	 * @description Cerrar modal del gif
+	 */
+	closeModal() {
+		document.body.style.overflow = 'auto';
+		document.querySelector('#modal').classList.add('modal-closed');
 	},
 	/**
 	 * @description Eliminar objeto de un array

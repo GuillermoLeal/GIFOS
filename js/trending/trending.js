@@ -21,10 +21,10 @@ const handleDataTrending = () => {
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
 				let templateGifs = '';
-				gifsId = [];
+				const dataGifs = [];
 
 				data.forEach((item) => {
-					gifsId.push(item.id);
+					dataGifs.push(item);
 					// Si se encuentra en favoritos cambia el icono del gif
 					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
 					// Usamos el metodo para pintar los GIFS
@@ -33,10 +33,12 @@ const handleDataTrending = () => {
 				// Pintar los gifs
 				containerTrending.insertAdjacentHTML('beforeend', templateGifs);
 
+				gifsId = dataGifs.map((i) => i.id);
 				btnLeft.setAttribute('style', 'display: none');
 				// Agregamos eventos a los botones de accion de los GIFS...
-				gif.addEventFavorites(gifsId);
-				gif.addEventDownloadGif(gifsId);
+				gif.addEventFavorites(dataGifs.map((i) => i.id));
+				gif.addEventDownloadGif(dataGifs.map((i) => i.id));
+				gif.addEventFullScreenGif(dataGifs);
 			}
 		})
 		.catch((err) => {
@@ -50,7 +52,9 @@ const handleDataTrending = () => {
 const rightMove = () => {
 	btnLeft.setAttribute('style', '');
 	offset += 1;
-	document.querySelector(`.gifId-${gifsId[offset]}`).scrollIntoView();
+	const gifs = document.querySelectorAll(`.gifId-${gifsId[offset]}`);
+	gifs[gifs.length > 1 ? 1 : 0].scrollIntoView();
+
 	if (offset == 35) {
 		offset = 33;
 		btnRight.setAttribute('style', 'display: none');
@@ -62,7 +66,9 @@ const rightMove = () => {
 const leftMove = () => {
 	btnRight.setAttribute('style', '');
 	offset -= 3;
-	document.querySelector(`.gifId-${gifsId[offset]}`).scrollIntoView();
+	const gifs = document.querySelectorAll(`.gifId-${gifsId[offset]}`);
+	gifs[gifs.length > 1 ? 1 : 0].scrollIntoView();
+
 	if (offset == 0) {
 		offset = 2;
 		btnLeft.setAttribute('style', 'display: none');
