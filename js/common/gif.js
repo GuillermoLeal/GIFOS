@@ -230,6 +230,7 @@ export default {
 	},
 	/**
 	 * @description Mostrar gif en tamñano original
+	 * @param arrGifs - lista de gifs - type: Array
 	 */
 	fullScreenGif(arrGifs) {
 		if (validateEvent) {
@@ -266,6 +267,11 @@ export default {
 				});
 		}
 	},
+	/**
+	 * @description Pasar gif cuando se le da a las flechas
+	 * @param arrGifs - lista de gifs - type: Array
+	 * @param direction - direccion de la flecha al pasar el gif (true: izquierda, false: derecha) - type: Boolean
+	 */
 	reloadGifFullScreen(arrGifs, direction) {
 		if (direction) {
 			if (positionGif == 0) {

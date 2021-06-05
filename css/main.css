@@ -184,6 +184,7 @@ body {
 
 .section-search img {
   width: 70%;
+  height: auto;
 }
 
 #icon-search-left {
@@ -657,7 +658,7 @@ body {
   left: 0;
 }
 
-.navbar-links:active {
+.navbar-links.active {
   color: #9cafc3;
 }
 
@@ -689,10 +690,6 @@ body {
 #icon-bars span:nth-child(3) {
   -webkit-transform-origin: 0% 100%;
           transform-origin: 0% 100%;
-}
-
-.active {
-  color: #9cafc3;
 }
 
 .shadow {
@@ -835,13 +832,13 @@ footer p {
   background-color: var(--color__bg);
 }
 
-.btn-circle:active {
+.btn-circle.active {
   background-color: #9cafc3;
   border: 1px solid #9cafc3;
 }
 
-.btn-circle:active span {
-  background-color: var(--color__bg);
+.btn-circle.active span {
+  background-color: #ffffff;
 }
 
 @media (max-width: 767px) {

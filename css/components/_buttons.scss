@@ -33,12 +33,12 @@
 		}
 	}
 
-	&:active {
+	&.active {
 		background-color: $grey;
 		border: 1px solid $grey;
 
 		span {
-			background-color: var(--color__bg);
+			background-color: $white;
 		}
 	}
 

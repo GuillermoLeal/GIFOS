@@ -133,7 +133,7 @@
 		left: 0;
 	}
 
-	&:active {
+	&.active {
 		color: $grey;
 	}
 }
@@ -158,10 +158,6 @@
 	&:nth-child(3) {
 		transform-origin: 0% 100%;
 	}
-}
-
-.active {
-	color: $grey;
 }
 
 .shadow {
