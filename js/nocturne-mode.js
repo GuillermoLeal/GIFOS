@@ -1,5 +1,5 @@
 //TODO: VARIABLES ****/
-const btn_noc_mode = document.querySelector('#noc-mode');
+const btnNocMode = document.querySelector('#noc-mode');
 
 //TODO: FUNCTIONS ****/
 const getNocMode = () => {
@@ -13,22 +13,22 @@ const validateNocMode = () => {
 	const bodyClassList = document.body.classList;
 	if (getNocMode() == 'true') {
 		bodyClassList.add('theme--dark');
-		btn_noc_mode.innerText = 'Modo Diurno';
+		btnNocMode.innerText = 'Modo Diurno';
 	} else {
 		bodyClassList.remove('theme--dark');
-		btn_noc_mode.innerText = 'Modo Nocturno';
+		btnNocMode.innerText = 'Modo Nocturno';
 	}
 };
 
 //TODO: EVENTS ****/
-btn_noc_mode.addEventListener('click', () => {
+btnNocMode.addEventListener('click', () => {
 	const bodyClassList = document.body.classList;
 
 	if (bodyClassList.contains('theme--dark')) {
-		btn_noc_mode.innerText = 'Modo Nocturno';
+		btnNocMode.innerText = 'Modo Nocturno';
 		setNocMode(false);
 	} else {
-		btn_noc_mode.innerText = 'Modo Diurno';
+		btnNocMode.innerText = 'Modo Diurno';
 		setNocMode(true);
 	}
 

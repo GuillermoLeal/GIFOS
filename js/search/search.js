@@ -6,7 +6,7 @@ import gif from '../common/gif.js';
 const containerSearch = document.querySelector('#search-input');
 const searchInput = document.querySelector('#search');
 const searchList = document.querySelector('#list-search');
-const btnSeeMore = document.querySelector('#btn-see-more');
+const btnSeeMore = document.querySelector('#btn-rounded');
 // icons
 const searchIconLeft = document.querySelector('#icon-search-left');
 const searchIconRight = document.querySelector('#icon-search-right');

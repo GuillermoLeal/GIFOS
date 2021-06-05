@@ -3,7 +3,7 @@ import gif from '../common/gif.js';
 
 const sectionGifs = document.querySelector('#gifs-section');
 const containerGifs = document.querySelector('#gifs-results');
-const btnSeeMore = document.querySelector('#btn-see-more');
+const btnSeeMore = document.querySelector('#btn-rounded');
 // data
 let dataGifs = [];
 

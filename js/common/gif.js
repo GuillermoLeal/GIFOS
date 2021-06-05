@@ -1,8 +1,8 @@
 import api from '../services/services.js';
 const sectionGifs = document.querySelector('#gifs-section');
 const containerGifs = document.querySelector('#gifs-results');
-const btnSeeMore = document.querySelector('#btn-see-more');
-const containerGifInfo = document.querySelector('#view-gif');
+const btnSeeMore = document.querySelector('#btn-rounded');
+const modal = document.querySelector('#modal');
 let validateEvent = true;
 let positionGif = 0;
 
@@ -46,19 +46,34 @@ export default {
 	 */
 	maskGifFullScreen(gif, iconFav = 'favorite') {
 		return `
-			<video class="gif" autoplay="" loop="" muted="" playsinline="">
-				<source src="${gif.images.fixed_height.mp4}" type="video/mp4" />
-				Gif...
-			</video>
-			<div class="gif-container-max">
-				<div class="gif-info-max">
-					<p class="gif-user">${gif.username}</p>
-					<p class="gif-title">${gif.title}</p>
+			<i id="close-modal" class="close-modal material-icons">clear</i>
+			<div class="view-gif-max">
+				<div class="content-arrow-left">
+					<div id="btn-arrow-left-max" class="btn-arrow-left">
+						<i class="material-icons">arrow_back_ios_new</i>
+					</div>
 				</div>
+				<div id="view-gif">
+					<video class="gif" autoplay="" loop="" muted="" playsinline="">
+						<source src="${gif.images.fixed_height.mp4}" type="video/mp4" />
+						Gif...
+					</video>
+					<div class="gif-container-max">
+						<div class="gif-info-max">
+							<p class="gif-user">${gif.username}</p>
+							<p class="gif-title">${gif.title}</p>
+						</div>
 
-				<div class="gif-action-max">
-					<i class="fav-${gif.id} material-icons">${iconFav}</i>
-					<i class="download-${gif.id} material-icons">save_alt</i>
+						<div class="gif-action-max">
+							<i class="fav-${gif.id} material-icons">${iconFav}</i>
+							<i class="download-${gif.id} material-icons">save_alt</i>
+						</div>
+					</div>
+				</div>
+				<div class="content-arrow-right">
+					<div id="btn-arrow-right-max" class="btn-arrow-right">
+						<i class="material-icons">arrow_forward_ios</i>
+					</div>
 				</div>
 			</div>
 		`;
@@ -245,17 +260,13 @@ export default {
 
 					document.querySelector('#modal').classList.remove('modal-closed');
 					document.body.style.overflow = 'hidden'; // quitar el scroll
-					document.querySelector('#close-modal').addEventListener('click', this.closeModal);
-					// Agregamos el evento de cambiar gif al modal
-					document.querySelector('#btn-arrow-left-max').addEventListener('click', () => this.reloadGifFullScreen(arrGifs, true));
-					document.querySelector('#btn-arrow-right-max').addEventListener('click', () => this.reloadGifFullScreen(arrGifs, false));
 
 					// Pintar la info del gif
 					const gifsFav = api.getAllFavoritesLocal();
 					const iconFav = gifsFav.some((fav) => fav.id === data.id) ? 'favorite' : 'favorite_border';
+					modal.innerHTML = this.maskGifFullScreen(data, iconFav);
 
-					containerGifInfo.innerHTML = this.maskGifFullScreen(data, iconFav);
-
+					this.addEventChangeGif(arrGifs);
 					this.addEventFavorites([data.id]);
 					this.addEventDownloadGif([data.id]);
 				})
@@ -263,9 +274,20 @@ export default {
 					console.error('Error al hacer la petición getApiGifByID en la API: ', err);
 				})
 				.finally(() => {
-					validateEvent = false;
+					validateEvent = true;
 				});
 		}
+	},
+	/**
+	 * @description Agregar eventos a los botones de ver el gif en tamaño original
+	 * @param arrGifs - lista de gifs - type: Array
+	 */
+	addEventChangeGif(arrGifs, gif) {
+		// Evento cerrar el modal
+		document.querySelector('#close-modal').addEventListener('click', this.closeModal);
+		// Agregamos el evento de cambiar gif al modal ver gif en tamaño original
+		document.querySelector('#btn-arrow-left-max').addEventListener('click', () => this.reloadGifFullScreen(arrGifs, true));
+		document.querySelector('#btn-arrow-right-max').addEventListener('click', () => this.reloadGifFullScreen(arrGifs, false));
 	},
 	/**
 	 * @description Pasar gif cuando se le da a las flechas
@@ -286,7 +308,12 @@ export default {
 				positionGif++;
 			}
 		}
-		containerGifInfo.innerHTML = this.maskGifFullScreen(arrGifs[positionGif]);
+
+		// Pintar la info del gif
+		const gifsFav = api.getAllFavoritesLocal();
+		const iconFav = gifsFav.some((fav) => fav.id === arrGifs[positionGif].id) ? 'favorite' : 'favorite_border';
+		modal.innerHTML = this.maskGifFullScreen(arrGifs[positionGif], iconFav);
+		this.addEventChangeGif(arrGifs);
 	},
 	/**
 	 * @description Cerrar modal del gif

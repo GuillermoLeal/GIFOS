@@ -21,10 +21,8 @@ const handleDataTrending = () => {
 				// traemos los favoritos
 				const gifsFav = api.getAllFavoritesLocal();
 				let templateGifs = '';
-				const dataGifs = [];
 
 				data.forEach((item) => {
-					dataGifs.push(item);
 					// Si se encuentra en favoritos cambia el icono del gif
 					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
 					// Usamos el metodo para pintar los GIFS
@@ -33,12 +31,12 @@ const handleDataTrending = () => {
 				// Pintar los gifs
 				containerTrending.insertAdjacentHTML('beforeend', templateGifs);
 
-				gifsId = dataGifs.map((i) => i.id);
+				gifsId = data.map((i) => i.id);
 				btnLeft.setAttribute('style', 'display: none');
 				// Agregamos eventos a los botones de accion de los GIFS...
-				gif.addEventFavorites(dataGifs.map((i) => i.id));
-				gif.addEventDownloadGif(dataGifs.map((i) => i.id));
-				gif.addEventFullScreenGif(dataGifs);
+				gif.addEventFavorites(data.map((i) => i.id));
+				gif.addEventDownloadGif(data.map((i) => i.id));
+				gif.addEventFullScreenGif(data);
 			}
 		})
 		.catch((err) => {
