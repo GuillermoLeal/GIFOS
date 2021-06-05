@@ -24,7 +24,7 @@ const handleDataTrending = () => {
 
 				data.forEach((item) => {
 					// Si se encuentra en favoritos cambia el icono del gif
-					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
+					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'heart' : 'heart-outline';
 					// Usamos el metodo para pintar los GIFS
 					templateGifs += gif.maskGifs(item, iconFav);
 				});

@@ -1,7 +1,3 @@
-.navbar {
-	position: fixed;
-}
-
 #create-gif {
 	.btn-rounded {
 		margin: 30px;
@@ -23,12 +19,47 @@
 }
 
 .container-video {
+	display: flex;
 	padding: 30px;
 	width: 45%;
 	min-width: 400px;
-	height: 45%;
+	height: 60%;
 	min-height: 330px;
 	border: 1px solid var(--color__primary);
+
+	@include media(md) {
+		width: 70%;
+	}
+}
+
+.corner {
+	height: 30px;
+	width: 30px;
+}
+
+.corner-top-left {
+	border-top: 2px solid $color__secondary;
+	border-left: 2px solid $color__secondary;
+}
+
+.corner-bottom-left {
+	border-bottom: 2px solid $color__secondary;
+	border-left: 2px solid $color__secondary;
+}
+
+.corner-top-right {
+	border-top: 2px solid $color__secondary;
+	border-right: 2px solid $color__secondary;
+}
+
+.corner-bottom-right {
+	border-bottom: 2px solid $color__secondary;
+	border-right: 2px solid $color__secondary;
+}
+
+.content-text {
+	width: 100%;
+	height: 100%;
 }
 
 .steps {

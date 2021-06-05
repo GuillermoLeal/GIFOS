@@ -28,7 +28,7 @@
 	position: absolute;
 	top: 14px;
 	left: 21px;
-	font-size: $font-size-n;
+	font-size: $font-size-ns;
 	color: $grey;
 }
 
@@ -36,7 +36,7 @@
 	position: absolute;
 	top: 14px;
 	right: 21px;
-	font-size: $font-size-n;
+	font-size: $font-size-s;
 	color: var(--color__primary);
 	cursor: pointer;
 }
@@ -91,7 +91,7 @@
 			i {
 				z-index: -1;
 				margin-right: 10px;
-				font-size: $font-size-n;
+				font-size: $font-size-ns;
 			}
 		}
 	}

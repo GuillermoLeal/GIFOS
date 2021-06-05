@@ -20,7 +20,7 @@ export default {
 	/**
 	 * @description Se encarga de pintar la lista de gifs
 	 */
-	maskGifs(gif, iconFav = 'favorite') {
+	maskGifs(gif, iconFav = 'heart') {
 		return `
 			<div class="gifId-${gif.id} gif-container" data-target="gif">
 				<video class="gif" height="${gif.images.fixed_height.height}" autoplay loop muted playsinline>
@@ -29,9 +29,9 @@ export default {
 				</video>
 				<div class="hover-gif">
 					<div class="gif-actions">
-						<i class="fav-${gif.id} material-icons">${iconFav}</i>
-						<i class="download-${gif.id} material-icons">save_alt</i>
-						<i class="show-${gif.id} material-icons">open_in_full</i>
+						<i class="fav-${gif.id} icon-${iconFav}"></i>
+						<i class="download-${gif.id} icon-download-hover"></i>
+						<i class="show-${gif.id} icon-max-screen"></i>
 					</div>
 					<div class="gif-info">
 						<p class="gif-user">${gif.username}</p>
@@ -44,13 +44,13 @@ export default {
 	/**
 	 * @description pintar la informacion del gif en tamaño original
 	 */
-	maskGifFullScreen(gif, iconFav = 'favorite') {
+	maskGifFullScreen(gif, iconFav = 'heart') {
 		return `
-			<i id="close-modal" class="close-modal material-icons">clear</i>
+			<i id="close-modal" class="close-modal icon-clear">clear</i>
 			<div class="view-gif-max">
 				<div class="content-arrow-left">
 					<div id="btn-arrow-left-max" class="btn-arrow-left">
-						<i class="material-icons">arrow_back_ios_new</i>
+						<i class="icon-arrow-left"></i>
 					</div>
 				</div>
 				<div id="view-gif">
@@ -65,14 +65,14 @@ export default {
 						</div>
 
 						<div class="gif-action-max">
-							<i class="fav-${gif.id} material-icons">${iconFav}</i>
-							<i class="download-${gif.id} material-icons">save_alt</i>
+							<i class="fav-${gif.id} icon-${iconFav}"></i>
+							<i class="download-${gif.id} icon-download-hover"></i>
 						</div>
 					</div>
 				</div>
 				<div class="content-arrow-right">
 					<div id="btn-arrow-right-max" class="btn-arrow-right">
-						<i class="material-icons">arrow_forward_ios</i>
+						<i class="icon-arrow-roght"></i>
 					</div>
 				</div>
 			</div>
@@ -173,17 +173,22 @@ export default {
 					const { data } = res;
 					const favorites = api.getAllFavoritesLocal();
 					let iconFav = '';
+					let iconRem = '';
 					// Se valida si el Gif ya se encuentra en favoritos - si se encuentra lo quita.. si no lo agrega...
 					if (favorites.some((fav) => fav.id === gifId)) {
 						this.removeItemObjFromArr(favorites, gifId);
-						iconFav = 'favorite_border';
+						iconFav = 'icon-heart-outline';
+						iconRem = 'icon-heart';
 					} else {
 						favorites.push(data);
-						iconFav = 'favorite';
+						iconFav = 'icon-heart';
+						iconRem = 'icon-heart-outline';
 					}
+
 					// cambiar los iconos de los gifs
 					iconsGif.forEach((btnFav) => {
-						btnFav.innerText = iconFav;
+						btnFav.classList.add(iconFav);
+						btnFav.classList.remove(iconRem);
 					});
 
 					api.setFavoritesLocal(favorites);
@@ -263,7 +268,7 @@ export default {
 
 					// Pintar la info del gif
 					const gifsFav = api.getAllFavoritesLocal();
-					const iconFav = gifsFav.some((fav) => fav.id === data.id) ? 'favorite' : 'favorite_border';
+					const iconFav = gifsFav.some((fav) => fav.id === data.id) ? 'heart' : 'heart-outline';
 					modal.innerHTML = this.maskGifFullScreen(data, iconFav);
 
 					this.addEventChangeGif(arrGifs);
@@ -311,7 +316,7 @@ export default {
 
 		// Pintar la info del gif
 		const gifsFav = api.getAllFavoritesLocal();
-		const iconFav = gifsFav.some((fav) => fav.id === arrGifs[positionGif].id) ? 'favorite' : 'favorite_border';
+		const iconFav = gifsFav.some((fav) => fav.id === arrGifs[positionGif].id) ? 'heart' : 'heart-outline';
 		modal.innerHTML = this.maskGifFullScreen(arrGifs[positionGif], iconFav);
 		this.addEventChangeGif(arrGifs);
 		this.addEventFavorites([arrGifs[positionGif].id]);

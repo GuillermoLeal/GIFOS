@@ -43,6 +43,10 @@
   --color__primary: #572ee5;
   --color__text: #060a24;
   --color__primary__transparent: rgba(86, 46, 229, 0.8);
+  --img_camera: $img_camera;
+  --img_tape1: $img_tape1;
+  --img_tape2: $img_tape2;
+  --img_tape: $img_tape;
 }
 
 .theme--dark {
@@ -51,6 +55,10 @@
   --color__primary: #ffffff;
   --color__text: #ffffff;
   --color__primary__transparent: #000000;
+  --img_camera: $img_camera--dark;
+  --img_tape1: $img_tape1--dark;
+  --img_tape2: $img_tape2--dark;
+  --img_tape: $img_tape--dark;
 }
 
 * {
@@ -62,6 +70,10 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+i {
+  font-size: 1.8rem;
 }
 
 input[type='search']::-webkit-search-decoration,
@@ -600,7 +612,7 @@ footer p {
   position: absolute;
   top: 14px;
   left: 21px;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #9cafc3;
 }
 
@@ -608,7 +620,7 @@ footer p {
   position: absolute;
   top: 14px;
   right: 21px;
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   color: var(--color__primary);
   cursor: pointer;
 }
@@ -688,7 +700,7 @@ footer p {
 .search-input .autocom-box li i {
   z-index: -1;
   margin-right: 10px;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 .search-input.active #icon-search-left {
@@ -810,10 +822,6 @@ footer p {
   }
 }
 
-.navbar {
-  position: fixed;
-}
-
 #create-gif .btn-rounded {
   margin: 30px;
 }
@@ -833,12 +841,51 @@ footer p {
 }
 
 .container-video {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   padding: 30px;
   width: 45%;
   min-width: 400px;
-  height: 45%;
+  height: 60%;
   min-height: 330px;
   border: 1px solid var(--color__primary);
+}
+
+@media (max-width: 1023px) {
+  .container-video {
+    width: 70%;
+  }
+}
+
+.corner {
+  height: 30px;
+  width: 30px;
+}
+
+.corner-top-left {
+  border-top: 2px solid #50e3c2;
+  border-left: 2px solid #50e3c2;
+}
+
+.corner-bottom-left {
+  border-bottom: 2px solid #50e3c2;
+  border-left: 2px solid #50e3c2;
+}
+
+.corner-top-right {
+  border-top: 2px solid #50e3c2;
+  border-right: 2px solid #50e3c2;
+}
+
+.corner-bottom-right {
+  border-bottom: 2px solid #50e3c2;
+  border-right: 2px solid #50e3c2;
+}
+
+.content-text {
+  width: 100%;
+  height: 100%;
 }
 
 .steps {

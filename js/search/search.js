@@ -35,7 +35,7 @@ const handleDataAutocomplete = () => {
 
 			if (data.length) {
 				data.forEach((item) => {
-					lista += `<li class="item-list-autocomplete" id="value-${item.name}"><i class="material-icons">search</i>${item.name}</li>`;
+					lista += `<li class="item-list-autocomplete" id="value-${item.name}"><i class="icon-search"></i>${item.name}</li>`;
 				});
 				searchList.innerHTML = lista;
 				addEventAutocomplete();
@@ -77,7 +77,7 @@ const handleDataSearch = (seeMore = false) => {
 				data.forEach((item) => {
 					dataGifs.push(item);
 					// Si se encuentra en favoritos cambia el icono del gif
-					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'favorite' : 'favorite_border';
+					const iconFav = gifsFav.some((fav) => fav.id === item.id) ? 'heart' : 'heart-outline';
 					// Usamos el metodo para pintar los GIFS
 					templateGifs += gif.maskGifs(item, iconFav);
 				});
@@ -141,9 +141,11 @@ const showSectionSearch = (validateData) => {
  */
 const toggleIconsSearch = () => {
 	if (searchInput.value) {
-		searchIconRight.innerHTML = 'close';
+		searchIconRight.classList.add('icon-close');
+		searchIconRight.classList.remove('icon-search');
 	} else {
-		searchIconRight.innerHTML = 'search';
+		searchIconRight.classList.add('icon-search');
+		searchIconRight.classList.remove('icon-close');
 	}
 };
 
@@ -158,7 +160,8 @@ const handleResetSearch = () => {
 		sectionDataSearch.classList.remove('active-data');
 		searchInput.value = '';
 		searchList.innerHTML = '';
-		searchIconRight.innerHTML = 'search';
+		searchIconRight.classList.add('icon-search');
+		searchIconRight.classList.remove('icon-close');
 	}
 };
 
