@@ -2,6 +2,16 @@ body {
 	background-color: var(--color__bg);
 }
 
+.max-height {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+.h-100 {
+	height: 100%;
+}
+
 .d-none-md {
 	display: none;
 
@@ -22,7 +32,6 @@ body {
 	min-width: 30px;
 }
 
-// TODO: Page Main ************************************
 .svg-gifos-fill {
 	fill: var(--color__primary);
 }
@@ -54,123 +63,6 @@ body {
 		@include media(sm) {
 			display: none;
 		}
-	}
-}
-
-#section-search {
-	display: grid;
-	grid-template-columns: 1fr;
-}
-
-.section-search {
-	width: 35%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
-	@include media(md) {
-		width: 50%;
-	}
-
-	@include media(sm) {
-		width: 80%;
-	}
-
-	img {
-		width: 70%;
-		height: auto;
-	}
-}
-
-#icon-search-left {
-	display: none;
-	position: absolute;
-	top: 14px;
-	left: 21px;
-	font-size: $font-size-n;
-	color: $grey;
-}
-
-#icon-search-right {
-	position: absolute;
-	top: 14px;
-	right: 21px;
-	font-size: $font-size-n;
-	color: var(--color__primary);
-	cursor: pointer;
-}
-
-.search-input {
-	position: relative;
-	padding: 2px;
-	width: 100%;
-	border-radius: 30px;
-	border: 1px solid var(--color__primary);
-
-	input {
-		padding: 0px 60px;
-		font-family: $font-primary;
-		background-color: var(--color__bg);
-		color: var(--color__text);
-		width: 100%;
-		height: 50px;
-		border: none;
-		outline: none;
-		border-radius: 30px;
-		font-size: $font-size-s;
-
-		&::placeholder {
-			color: $grey;
-		}
-
-		@include media(xs) {
-			padding: 0% 18%;
-		}
-	}
-
-	.autocom-box {
-		display: none;
-		margin: 0px 20px 15px 20px;
-		border-top: 1px solid $grey;
-
-		@include media(md) {
-			display: none;
-		}
-
-		li {
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-			cursor: default;
-			margin-top: 10px;
-			font-family: $font-primary;
-			font-size: $font-size-s;
-			color: $grey;
-
-			i {
-				z-index: -1;
-				margin-right: 10px;
-				font-size: $font-size-n;
-			}
-		}
-	}
-
-	&.active {
-		#icon-search-left {
-			display: inline-block;
-		}
-
-		.autocom-box {
-			display: block;
-		}
-	}
-}
-
-#info-search {
-	display: none;
-
-	&.active {
-		display: block;
 	}
 }
 
@@ -231,75 +123,3 @@ body {
 		color: $color__secondary;
 	}
 }
-
-#trending-GIFOS {
-	background-color: var(--color__bg__grey);
-}
-
-.list-gifs {
-	display: grid;
-	grid-template-columns: 1fr 80% 1fr;
-	grid-template-rows: 1fr;
-	padding-bottom: 15%;
-
-	@include media(sm) {
-		grid-template-columns: 1fr;
-		grid-template-rows: 1fr;
-	}
-
-	.content-arrow-left {
-		margin: 20px;
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-
-		@include media(sm) {
-			display: none;
-		}
-	}
-
-	.content-arrow-right {
-		margin: 20px;
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-
-		@include media(sm) {
-			display: none;
-		}
-	}
-
-	#gifs-trending {
-		position: relative;
-		z-index: 1;
-		display: flex;
-		align-items: center;
-		padding: 0;
-		overflow: hidden;
-		scroll-behavior: smooth;
-
-		@include media(sm) {
-			display: block;
-			white-space: nowrap;
-			overflow-x: scroll;
-			padding: 0% 5%;
-		}
-
-		.gif-container {
-			min-width: 32%;
-			margin: 0 20px 0 0;
-
-			@include media(sm) {
-				display: inline-block;
-				margin: 10px;
-				width: 320px;
-			}
-
-			@include media(xs) {
-				width: 200px;
-			}
-		}
-	}
-}
-
-// TODO end page main... *******************************
