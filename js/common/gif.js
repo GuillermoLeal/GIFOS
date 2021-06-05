@@ -267,6 +267,8 @@ export default {
 					modal.innerHTML = this.maskGifFullScreen(data, iconFav);
 
 					this.addEventChangeGif(arrGifs);
+					this.addEventFavorites([data.id]);
+					this.addEventDownloadGif([data.id]);
 				})
 				.catch((err) => {
 					console.error('Error al hacer la petición getApiGifByID en la API: ', err);
