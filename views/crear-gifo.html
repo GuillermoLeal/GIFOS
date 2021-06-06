@@ -79,6 +79,13 @@
 			</nav>
 		</header>
 		<main id="create-gif" class="h-100 d-flex flex-column justify-center align-center">
+			<div id="img-camera-container" class="img-camera">
+				<div id="img-camera"></div>
+				<div id="img-luz-camera" class="img-luz-camera"></div>
+				<div id="img-tape1" class="animate-rotate paused"></div>
+				<div id="img-tape2" class="animate-rotate paused"></div>
+			</div>
+			<div id="img-tape"></div>
 			<div class="container-video">
 				<div class="d-flex flex-column justify-between">
 					<div class="corner corner-top-left"></div>
@@ -114,6 +121,8 @@
 		</footer>
 
 		<!-- TODO SCRIPTS JS -->
+		<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 		<script type="module" src="../js/nocturne-mode.js"></script>
+		<script type="module" src="../js/create_gif/create-gif.js"></script>
 	</body>
 </html>
