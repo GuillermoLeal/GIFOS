@@ -114,3 +114,11 @@
 		display: block;
 	}
 }
+
+.search-trendins span {
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}

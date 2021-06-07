@@ -44,6 +44,20 @@ export default {
 		});
 	},
 	/**
+	 * @description Promesa para obtener las recomendaciones de busqueda
+	 * @param limit - limite de registros que se desea obtener - type: String
+	 * @param offset - desde donde empieza a traer la data - type: Number
+	 * @returns Promise
+	 */
+	getApiTrendingSearch() {
+		return new Promise((resolve, reject) => {
+			fetch(`${pathsApi.API_SEARCH_TRENDING}?api_key=${pathsApi.API_KEY}`)
+				.then((res) => res.json())
+				.then((data) => resolve(data))
+				.catch((err) => reject(err));
+		});
+	},
+	/**
 	 * @description Promesa para obtener un gif en especifico
 	 * @param string id - type: String
 	 * @returns Promise

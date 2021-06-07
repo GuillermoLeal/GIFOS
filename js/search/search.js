@@ -6,6 +6,7 @@ import gif from '../common/gif.js';
 const containerSearch = document.querySelector('#search-input');
 const searchInput = document.querySelector('#search');
 const searchList = document.querySelector('#list-search');
+const searchTrendings = document.querySelectorAll('#search-trending span');
 const btnSeeMore = document.querySelector('#btn-rounded');
 // icons
 const searchIconLeft = document.querySelector('#icon-search-left');
@@ -15,6 +16,7 @@ const sectionInfoSearch = document.querySelector('#info-search');
 const sectionDataSearch = document.querySelector('#gifs-section');
 const containerGifsSearch = document.querySelector('#gifs-results');
 const titleSearch = document.querySelector('#title-search');
+
 // data
 let totalGifs = 0;
 let dataGifs = [];
@@ -165,6 +167,31 @@ const handleResetSearch = () => {
 	}
 };
 
+const getTrendingSearch = () => {
+	api.getApiTrendingSearch()
+		.then((res) => {
+			const trendings = res.data.slice(0, 5);
+
+			trendings.forEach((text, key) => {
+				searchTrendings[key].innerText = text;
+			});
+		})
+		.catch((err) => {
+			console.log('Error al hacer consulta getApiTrendingSearch() ', err);
+		});
+};
+
+const addEventSearchTrendings = () => {
+	searchTrendings.forEach((element) => {
+		element.addEventListener('click', autocompleteTrending);
+	});
+};
+
+const autocompleteTrending = () => {
+	searchInput.value = event.target.innerText;
+	handleDataSearch();
+};
+
 //? EVENTS *******************
 searchInput.addEventListener('keyup', (event) => {
 	// Si se preciona Enter en el buscador hace la petición...
@@ -177,3 +204,6 @@ searchIconLeft.addEventListener('click', handleDataSearch);
 btnSeeMore.addEventListener('click', () => handleDataSearch(true));
 searchInput.addEventListener('input', handleDataAutocomplete);
 searchIconRight.addEventListener('click', handleResetSearch);
+
+addEventSearchTrendings();
+getTrendingSearch();

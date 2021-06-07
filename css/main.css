@@ -727,6 +727,14 @@ footer p {
   display: block;
 }
 
+.search-trendins span {
+  cursor: pointer;
+}
+
+.search-trendins span:hover {
+  text-decoration: underline;
+}
+
 #trending-GIFOS {
   background-color: var(--color__bg__grey);
 }
