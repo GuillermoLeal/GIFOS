@@ -106,7 +106,6 @@ export default {
 	 * @returns Array
 	 */
 	getAllMyGifsLocal() {
-		console.log(!!localStorage.getItem('myGifs'));
 		if (!!localStorage.getItem('myGifs')) {
 			return JSON.parse(localStorage.getItem('myGifs'));
 		} else {

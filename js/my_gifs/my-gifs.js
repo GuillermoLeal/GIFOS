@@ -12,21 +12,21 @@ let dataGifs = [];
  * @description mostrar los gifs que estan en favoritos
  * @param seeMore - Si el evento viene del boton "ver mas" - type: Boolean
  */
-const handleDataFav = (seeMore = false) => {
+const handleDataMyGifs = (seeMore = false) => {
 	if (!seeMore) {
 		gif.setTotalGifs(0);
 		dataGifs = [];
 	}
 	const offset = gif.totalGifs || 0;
-	// traemos los favoritos
-	const gifFav = api.getPageFavoritesLocal(12, offset);
-	const totalAllGifs = api.getAllFavoritesLocal();
+	// traemos los gifos creados
+	const myGifos = api.getPageMyGifsLocal(12, offset);
+	const totalAllGifs = api.getAllMyGifsLocal();
 
 	let templateGifs = '';
 
-	gifFav.forEach((item) => {
+	myGifos.forEach((item) => {
 		dataGifs.push(item);
-		templateGifs += gif.maskGifs(item);
+		templateGifs += gif.maskGifs(item, 'heart', true);
 	});
 	// Pintar los gifs
 	containerGifs.insertAdjacentHTML('beforeend', templateGifs);
@@ -34,20 +34,20 @@ const handleDataFav = (seeMore = false) => {
 	gif.setTotalGifs(document.querySelectorAll('#gifs-results .gif-container').length);
 
 	// Agregamos eventos a los botones de accion de los GIFS...
-	gif.addEventFavorites(dataGifs.map((i) => i.id));
+	gif.addEventDeleteMyGifo(dataGifs.map((i) => i.id));
 	gif.addEventDownloadGif(dataGifs.map((i) => i.id));
 	gif.addEventFullScreenGif(dataGifs);
 	// Si NO se tienen mas gifs oculta el boton ver mas...
 	gif.totalGifs < totalAllGifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 
-	showSectionSearch(gifFav.length ? true : false);
+	showSectionData(myGifos.length ? true : false);
 };
 
 /**
  * @description Mostrar u ocultar las secciones al hacer una busqueda de gif
  * @param validateData - Si la consulta tiene datos muestra la seccion correspondiente - type: Boolean
  */
-const showSectionSearch = (validateData) => {
+const showSectionData = (validateData) => {
 	if (validateData) {
 		sectionGifs.classList.add('active-data');
 		sectionGifs.classList.remove('active-no-data');
@@ -58,6 +58,6 @@ const showSectionSearch = (validateData) => {
 };
 
 //? EVENTS *******************
-btnSeeMore.addEventListener('click', () => handleDataFav(true));
+btnSeeMore.addEventListener('click', () => handleDataMyGifs(true));
 
-handleDataFav();
+handleDataMyGifs();

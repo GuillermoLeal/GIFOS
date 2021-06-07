@@ -20,16 +20,19 @@ export default {
 	/**
 	 * @description Se encarga de pintar la lista de gifs
 	 */
-	maskGifs(gif, iconFav = 'heart') {
+	maskGifs(gif, iconFav = 'heart', myGif = false) {
+		// Si viene de la pagina favoritos pone el icono de corazon... si no pone el icono de papelera
+		const icon = myGif ? `<i class="trash-${gif.id} icon-trash-normal"></i>` : `<i class="fav-${gif.id} icon-${iconFav}"></i>`;
+
 		return `
 			<div class="gifId-${gif.id} gif-container" data-target="gif">
-				<video class="gif" height="${gif.images.fixed_height.height}" autoplay loop muted playsinline>
-					<source src="${gif.images.fixed_height.mp4}" type="video/mp4">
+				<video class="gif" height="${gif.images.original.height}" autoplay loop muted playsinline>
+					<source src="${gif.images.original.mp4}" type="video/mp4">
 					Gif...
 				</video>
 				<div class="hover-gif">
 					<div class="gif-actions">
-						<i class="fav-${gif.id} icon-${iconFav}"></i>
+						${icon}
 						<i class="download-${gif.id} icon-download-hover"></i>
 						<i class="show-${gif.id} icon-max-screen"></i>
 					</div>
@@ -44,7 +47,10 @@ export default {
 	/**
 	 * @description pintar la informacion del gif en tamaño original
 	 */
-	maskGifFullScreen(gif, iconFav = 'heart') {
+	maskGifFullScreen(gif, iconFav = 'heart', myGif = false) {
+		// Si viene de la pagina favoritos pone el icono de corazon... si no pone el icono de papelera
+		const icon = myGif ? `<i class="trash-${gif.id} icon-trash-normal"></i>` : `<i class="fav-${gif.id} icon-${iconFav}"></i>`;
+
 		return `
 			<i id="close-modal" class="close-modal icon-close"></i>
 			<div class="view-gif-max">
@@ -55,7 +61,7 @@ export default {
 				</div>
 				<div id="view-gif">
 					<video class="gif" autoplay="" loop="" muted="" playsinline="">
-						<source src="${gif.images.fixed_height.mp4}" type="video/mp4" />
+						<source src="${gif.images.original.mp4}" type="video/mp4" />
 						Gif...
 					</video>
 					<div class="gif-container-max">
@@ -65,7 +71,7 @@ export default {
 						</div>
 
 						<div class="gif-action-max">
-							<i class="fav-${gif.id} icon-${iconFav}"></i>
+							${icon}
 							<i class="download-${gif.id} icon-download-hover"></i>
 						</div>
 					</div>
@@ -87,6 +93,18 @@ export default {
 			const btnFavorites = document.querySelectorAll(`.fav-${id}`);
 			btnFavorites.forEach((btn) => {
 				btn.addEventListener('click', () => this.addGifFavorites());
+			});
+		});
+	},
+	/**
+	 * @description Agregar Evento eliminar gif creado
+	 * @param ids - id de los gifs los cuales se eliminaran de gifos creados - type: Array
+	 */
+	addEventDeleteMyGifo(ids) {
+		ids.forEach((id) => {
+			const btnFavorites = document.querySelectorAll(`.trash-${id}`);
+			btnFavorites.forEach((btn) => {
+				btn.addEventListener('click', () => this.deleteMyGifo(id));
 			});
 		});
 	},
@@ -128,28 +146,32 @@ export default {
 	 * @param favGifs - lista de gifs que el usuario tiene en favoritos - type: Array
 	 * @param gifId - gif que se seleccionó - type: String - Number
 	 */
-	reloadPageGif(favGifs, gifId) {
+	reloadPageGif(arrGifs, gifId, myGifos = false) {
 		let gifsContainer = this.getGifsContainer();
 		const gifRemove = document.querySelector(`#gifs-results .gifId-${gifId}`) || null;
-		if (favGifs.length <= gifsContainer.length || !!gifRemove) {
+		if (arrGifs.length <= gifsContainer.length || !!gifRemove) {
 			if (!!gifRemove) gifRemove.remove();
 		}
 
 		// Si al eliminar un gif existen mas de lo que se muestran.. agrega el siguiente
 		gifsContainer = this.getGifsContainer();
-		if (favGifs.length > gifsContainer.length && (gifsContainer.length % 12 !== 0 || gifsContainer.length == 0)) {
-			const gifNew = favGifs[gifsContainer.length];
+		if (arrGifs.length > gifsContainer.length && (gifsContainer.length % 12 !== 0 || gifsContainer.length == 0)) {
+			const gifNew = arrGifs[gifsContainer.length];
 			const templateGifs = this.maskGifs(gifNew);
 			containerGifs.insertAdjacentHTML('beforeend', templateGifs);
 			// agregar evento al gif que se agrego
-			this.addEventFavorites([gifNew.id], true);
+			if (myGifos) {
+				this.addEventDeleteMyGifo([gifNew.id]);
+			} else {
+				this.addEventFavorites([gifNew.id], true);
+			}
 			this.addEventDownloadGif([gifNew.id]);
-			this.addEventFullScreenGif(favGifs);
+			this.addEventFullScreenGif(arrGifs);
 		}
 
 		const gifs = this.getGifsContainer();
 		this.setTotalGifs(gifs.length);
-		favGifs.length > gifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
+		arrGifs.length > gifs.length ? btnSeeMore.classList.remove('d-none') : btnSeeMore.classList.add('d-none');
 	},
 	/**
 	 * @description Agregar gif a favoritos
@@ -205,6 +227,15 @@ export default {
 					validateEvent = true;
 				});
 		}
+	},
+	/**
+	 * @description Eliminar gifo de mis gifos creados
+	 */
+	deleteMyGifo(id) {
+		const myGifos = api.getAllMyGifsLocal();
+		this.removeItemObjFromArr(myGifos, id);
+		api.setMyGifsLocal(myGifos);
+		this.reloadPageGif(myGifos, id);
 	},
 	/**
 	 * @description Descargar el gif

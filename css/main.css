@@ -626,9 +626,9 @@ footer p {
 
 #icon-search-right {
   position: absolute;
-  top: 14px;
-  right: 21px;
-  font-size: 1.3rem;
+  top: 18px;
+  right: 25px;
+  font-size: 1rem;
   color: var(--color__primary);
   cursor: pointer;
 }
@@ -738,7 +738,7 @@ footer p {
       grid-template-columns: 1fr 80% 1fr;
   -ms-grid-rows: 1fr;
       grid-template-rows: 1fr;
-  padding-bottom: 15%;
+  padding-bottom: 10%;
 }
 
 @media (max-width: 767px) {
@@ -747,6 +747,7 @@ footer p {
         grid-template-columns: 1fr;
     -ms-grid-rows: 1fr;
         grid-template-rows: 1fr;
+    padding-bottom: 20%;
   }
 }
 

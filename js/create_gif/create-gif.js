@@ -189,7 +189,6 @@ const uploadGifo = () => {
 
 					const myGifs = api.getAllMyGifsLocal();
 					myGifs.push(res.data);
-					console.log(api.getAllMyGifsLocal(), myGifs);
 					api.setMyGifsLocal(myGifs);
 				})
 				.catch((err) => {
