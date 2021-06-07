@@ -1,8 +1,12 @@
 .pa {
 	padding: 15px;
 }
+.clear-button {
+	background-color: transparent;
+	border: none;
+}
 .d-none {
-	display: none;
+	display: none !important;
 }
 // FLEXBOX
 .d-flex {

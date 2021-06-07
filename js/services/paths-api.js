@@ -8,4 +8,5 @@ export default {
 	API_AUTOCOMPLETE: `${ENDPOINT}search/tags`,
 	API_TRENDING: `${ENDPOINT}trending`,
 	API_GIF_BY_ID: `${ENDPOINT}`,
+	API_UPLOAD_GIFO: `https://upload.giphy.com/v1/gifs`,
 };

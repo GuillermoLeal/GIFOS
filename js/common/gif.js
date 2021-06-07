@@ -208,11 +208,13 @@ export default {
 	},
 	/**
 	 * @description Descargar el gif
+	 * @param createGif - Si viene de la pagina crear mi gif - type: Boolean
+	 * @param id - Si viene de la pagina crear mi gif pasar el id del gif - type: String
 	 */
-	downloadGif() {
-		const gifId = event.target.classList[0].replace('download-', '');
+	downloadGif(createGif = false, id = null) {
+		const gifId = createGif ? id : event.target.classList[0];
 
-		api.getApiGifByID(gifId)
+		api.getApiGifByID(gifId.replace('download-', ''))
 			.then((res) => {
 				const { data } = res;
 				// Obtener el gif a descargar
@@ -238,6 +240,20 @@ export default {
 			})
 			.catch((err) => {
 				console.error('Error al hacer la petición getApiGifByID en la API: ', err);
+			});
+	},
+	/**
+	 * @description Compartir el gif
+	 * @param id - id del gif - type: String
+	 */
+	shareGif(id) {
+		api.getApiGifByID(id)
+			.then((res) => {
+				const { data } = res;
+				alert(data.url);
+			})
+			.catch((err) => {
+				console.error('Error al hacer la petición shareGif() en la API: ', err);
 			});
 	},
 	/**

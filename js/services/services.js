@@ -56,14 +56,14 @@ export default {
 				.catch((err) => reject(err));
 		});
 	},
-	/**
-	 * @description Promesa para descargar el gif
-	 * @param hash - hash del gif - type: String or Number
-	 * @returns Promise
-	 */
-	getApiGifDownlodad(hash = null) {
+	postUploadGif(blob) {
+		const url = `${pathsApi.API_UPLOAD_GIFO}?api_key=${pathsApi.API_KEY}`;
+
+		const form = new FormData();
+		form.append('file', blob, 'myGif.gif');
+
 		return new Promise((resolve, reject) => {
-			fetch(`https://media.giphy.com/media/${hash}/source.gif`)
+			fetch(url, { method: 'POST', body: form })
 				.then((res) => res.json())
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
@@ -100,6 +100,39 @@ export default {
 	 */
 	setFavoritesLocal(array) {
 		localStorage.setItem('favorites', JSON.stringify(array));
+	},
+	/**
+	 * @description Objetener todos los gifs que crea el usuario
+	 * @returns Array
+	 */
+	getAllMyGifsLocal() {
+		console.log(!!localStorage.getItem('myGifs'));
+		if (!!localStorage.getItem('myGifs')) {
+			return JSON.parse(localStorage.getItem('myGifs'));
+		} else {
+			return [];
+		}
+	},
+	/**
+	 * @description Objetener los favoritos del usuario
+	 * @param limit - limite de registros que se desea obtener - type: Number
+	 * @param offset - desde donde empieza a traer la data - type: Number
+	 * @returns Array
+	 */
+	getPageMyGifsLocal(limit = 12, offset = 0) {
+		if (!!localStorage.getItem('myGifs')) {
+			const myGifs = JSON.parse(localStorage.getItem('myGifs'));
+			return myGifs.slice(offset, offset + limit);
+		} else {
+			return [];
+		}
+	},
+	/**
+	 * @description Almacenar los gifos que crea el usuario
+	 * @param Array - array que se agregará en el localStorage de 'miGifs' - type: Array
+	 */
+	setMyGifsLocal(array) {
+		localStorage.setItem('myGifs', JSON.stringify(array));
 	},
 	/**
 	 * @description Obtener el gif a descargar

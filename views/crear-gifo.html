@@ -92,21 +92,43 @@
 					<div class="corner corner-bottom-left"></div>
 				</div>
 				<div class="content-text d-flex flex-column justify-center align-center">
-					<p class="title gifos-color">Aquí podrás <br />crear tus propios <span class="color-secundary">GIFOS</span></p>
-					<p class="title title-small title-outlined color-black">¡Crea tu GIFO en sólo 3 pasos! <br />(sólo necesitas una cámara para grabar un video)</p>
+					<video id="video-camera" class="recording d-none"></video>
+					<img id="img-recording" width="480" height="320" class="d-none" alt="img-gif-recording..." />
+					<div id="overflow-gif" class="overflow-gifo d-none">
+						<div class="btn-actions d-flex justify-end align-center d-none">
+							<i class="btn-action icon-download-hover"></i>
+							<i class="btn-action icon-link"></i>
+						</div>
+						<i class="status-gifo icon-loader icon-status-gifo animate-rotate"></i>
+						<p class="status-gifo info-status-gifo">Estamos subiendo tu GIFO</p>
+					</div>
+					<div id="text-info">
+						<p class="title gifos-color">Aquí podrás <br />crear tus propios <span class="color-secundary">GIFOS</span></p>
+						<p class="title title-small title-outlined color-black">¡Crea tu GIFO en sólo 3 pasos! <br />(sólo necesitas una cámara para grabar un video)</p>
+					</div>
 				</div>
 				<div class="d-flex flex-column justify-between">
 					<div class="corner corner-top-right"></div>
 					<div class="corner corner-bottom-right"></div>
 				</div>
 			</div>
-			<div class="steps">
-				<span>1</span>
-				<span>2</span>
-				<span>3</span>
+			<div class="footer-create-gif">
+				<div></div>
+				<div class="steps">
+					<span>1</span>
+					<span>2</span>
+					<span>3</span>
+				</div>
+				<div id="timer" class="timer d-none">00:00:00</div>
+				<li id="btn-replay" class="btn-replay d-none">
+					<button class="navbar-links clear-button">REPETIR CAPTURA</button>
+				</li>
 			</div>
 			<div class="line-separator"></div>
-			<button id="btn-rounded" class="btn-rounded">COMENSAR</button>
+			<button id="btn-start" class="btn-rounded">COMENSAR</button>
+			<button id="btn-play" class="btn-rounded d-none">GRABAR</button>
+			<button id="btn-upload" class="btn-rounded d-none">SUBIR GIFO</button>
+			<button id="btn-transparent" class="btn-rounded btn-transparent d-none">--------</button>
 		</main>
 		<footer>
 			<div class="content-social">
