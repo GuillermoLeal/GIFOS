@@ -87,6 +87,10 @@ const handleDataSearch = (seeMore = false) => {
 				containerGifsSearch.insertAdjacentHTML('beforeend', templateGifs);
 
 				// Agregamos eventos a los botones de accion de los GIFS...
+				gif.addEventMobile(
+					dataGifs,
+					dataGifs.map((i) => i.id),
+				);
 				gif.addEventFavorites(dataGifs.map((i) => i.id));
 				gif.addEventDownloadGif(dataGifs.map((i) => i.id));
 				gif.addEventFullScreenGif(dataGifs);

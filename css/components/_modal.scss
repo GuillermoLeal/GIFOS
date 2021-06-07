@@ -36,11 +36,20 @@
 	height: 100%;
 	transition: 0.5s;
 
+	@include media(sm) {
+		grid-template-columns: 1fr;
+		padding: 0px 50px;
+	}
+
 	.content-arrow-left {
 		margin: 20px;
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
+
+		@include media(sm) {
+			display: none;
+		}
 	}
 
 	.content-arrow-right {
@@ -48,6 +57,10 @@
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
+
+		@include media(sm) {
+			display: none;
+		}
 	}
 }
 
@@ -62,6 +75,7 @@
 		object-fit: contain;
 		width: auto;
 		max-width: 100%;
+		height: auto;
 		max-height: 500px;
 	}
 }

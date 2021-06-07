@@ -26,7 +26,7 @@ export default {
 
 		return `
 			<div class="gifId-${gif.id} gif-container" data-target="gif">
-				<video class="gif" height="${gif.images.original.height}" autoplay loop muted playsinline>
+				<video class="gifId-${gif.id} gif" height="${gif.images.original.height}" autoplay loop muted playsinline>
 					<source src="${gif.images.original.mp4}" type="video/mp4">
 					Gif...
 				</video>
@@ -83,6 +83,23 @@ export default {
 				</div>
 			</div>
 		`;
+	},
+	/**
+	 * @description Agregar Evento gif en mobile
+	 * @param ids - id de los gifs los cuales se le agregara el evento al boton de favoritos - type: Array
+	 */
+	addEventMobile(arrGifs, ids) {
+		ids.forEach((id) => {
+			const btnFavorites = document.querySelectorAll(`.gifId-${id}`);
+			btnFavorites.forEach((btn) => {
+				btn.addEventListener('click', () => {
+					const widthScreen = screen.width;
+					if (widthScreen < 767) {
+						this.fullScreenGif(arrGifs);
+					}
+				});
+			});
+		});
 	},
 	/**
 	 * @description Agregar Evento de añadir gif a favoritos
@@ -294,7 +311,12 @@ export default {
 	fullScreenGif(arrGifs) {
 		if (validateEvent) {
 			validateEvent = false;
-			const gifId = event.target.classList[0].replace('show-', '');
+			let gifId = null;
+			if (event.target.classList[0].includes('show-')) {
+				gifId = event.target.classList[0].replace('show-', '');
+			} else {
+				gifId = event.target.classList[0].replace('gifId-', '');
+			}
 
 			api.getApiGifByID(gifId)
 				.then((res) => {

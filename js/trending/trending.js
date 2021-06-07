@@ -34,6 +34,10 @@ const handleDataTrending = () => {
 				gifsId = data.map((i) => i.id);
 				btnLeft.setAttribute('style', 'display: none');
 				// Agregamos eventos a los botones de accion de los GIFS...
+				gif.addEventMobile(
+					data,
+					data.map((i) => i.id),
+				);
 				gif.addEventFavorites(data.map((i) => i.id));
 				gif.addEventDownloadGif(data.map((i) => i.id));
 				gif.addEventFullScreenGif(data);

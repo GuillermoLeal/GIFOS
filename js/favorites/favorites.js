@@ -34,6 +34,10 @@ const handleDataFav = (seeMore = false) => {
 	gif.setTotalGifs(document.querySelectorAll('#gifs-results .gif-container').length);
 
 	// Agregamos eventos a los botones de accion de los GIFS...
+	gif.addEventMobile(
+		dataGifs,
+		dataGifs.map((i) => i.id),
+	);
 	gif.addEventFavorites(dataGifs.map((i) => i.id));
 	gif.addEventDownloadGif(dataGifs.map((i) => i.id));
 	gif.addEventFullScreenGif(dataGifs);
