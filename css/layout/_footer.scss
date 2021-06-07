@@ -27,10 +27,9 @@ footer {
 
 .content-social {
 	width: 60%;
-	min-width: 375px;
+	// min-width: 375px;
 	display: flex;
 	flex-direction: row;
-	// justify-content: space-between;
 	align-items: center;
 
 	@include media(sm) {

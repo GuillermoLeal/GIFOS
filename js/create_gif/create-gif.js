@@ -17,7 +17,7 @@ const overflowGif = document.querySelector('#overflow-gif');
 const btnActionsGifo = document.querySelector('.btn-actions');
 const btnActions = document.querySelectorAll('.btn-actions .btn-action');
 const infoStatusGifo = document.querySelectorAll('.status-gifo');
-
+// data
 const CONFIG_RECORDRTC = {
 	type: 'gif',
 	frameRate: 1,
@@ -35,13 +35,24 @@ let recorder = null;
 let blob = null;
 
 // ? FUNCTIONS ************************************************
+/**
+ * @description Ocultar elemento en el DOM
+ * @param Element - elemento del HTML que se desea ocultar - type: Object
+ */
 const hiddenElement = (element) => {
 	element.classList.add('d-none');
 };
+/**
+ * @description Mostrar elemento en el DOM
+ * @param Element - elemento del HTML que se desea mostrar - type: Object
+ */
 const showElement = (element) => {
 	element.classList.remove('d-none');
 };
-
+/**
+ * @description Activar animacion de la camara
+ * @param Active - parar o activar la animacion - type: Boolean
+ */
 const activeAnimationCamera = (active) => {
 	if (active) {
 		imgCamera[1].classList.add('visible');
@@ -53,7 +64,10 @@ const activeAnimationCamera = (active) => {
 		imgCamera[3].classList.add('paused');
 	}
 };
-
+/**
+ * @description Transformar tiempo para mostrar en el DOM
+ * @param Time - contador - type: Number
+ */
 const parseTime = function (time) {
 	const hours = Math.floor(time / 3600);
 	time %= 3600;
@@ -67,8 +81,10 @@ const parseTime = function (time) {
 
 	return `${strHours}:${strMinutes}:${strSeconds}`;
 };
-
-const startTimer = function () {
+/**
+ * @description Iniciar contador de grabar gif
+ */
+const startTimer = () => {
 	let counter = 0;
 
 	timer = setInterval(() => {
@@ -76,7 +92,9 @@ const startTimer = function () {
 		labelTimer.textContent = parseTime(counter);
 	}, 1000);
 };
-
+/**
+ * @description Obtener permisos de camara
+ */
 const getStreamAndRecord = () => {
 	const constraints = {
 		audio: false,
@@ -87,7 +105,9 @@ const getStreamAndRecord = () => {
 
 	return navigator.mediaDevices.getUserMedia(constraints);
 };
-
+/**
+ * @description Iniciar creacion de gifo
+ */
 const startCreateGif = () => {
 	hiddenElement(btnStart);
 	titlesTextInfo[0].innerHTML = `¿Nos das acceso <br />a tu cámara?`;
@@ -95,7 +115,9 @@ const startCreateGif = () => {
 	steps[0].classList.add('active');
 	startGettingPermissions();
 };
-
+/**
+ * @description Inicializar creacion de gifo y pedir permisos
+ */
 const startGettingPermissions = async () => {
 	try {
 		stream = await getStreamAndRecord();
@@ -112,7 +134,9 @@ const startGettingPermissions = async () => {
 		resetCreateGif();
 	}
 };
-
+/**
+ * @description Iniciar / Parar gravacion del gifo
+ */
 const toggleRecording = () => {
 	if (!stateRecording) {
 		btnPlay.innerText = 'FINALIZAR';
@@ -133,7 +157,9 @@ const toggleRecording = () => {
 		stateRecording = false;
 	}
 };
-
+/**
+ * @description parar video gifo
+ */
 const stopRecordingGif = () => {
 	recorder.stopRecording(() => {
 		clearInterval(timer);
@@ -143,7 +169,9 @@ const stopRecordingGif = () => {
 		showElement(imgRecording);
 	});
 };
-
+/**
+ * @description Subir gifo y guardarlo en el localStorage
+ */
 const uploadGifo = () => {
 	hiddenElement(btnUpload);
 	hiddenElement(btnReplay);
@@ -180,7 +208,9 @@ const uploadGifo = () => {
 			infoStatusGifo[1].innerText = 'GIFO subido con éxito';
 		});
 };
-
+/**
+ * @description Reiniciar grabacion del gifo
+ */
 const resetPlayGif = () => {
 	labelTimer.innerText = '00:00:00';
 	showElement(btnPlay);
@@ -190,7 +220,9 @@ const resetPlayGif = () => {
 	hiddenElement(btnUpload);
 	hiddenElement(imgRecording);
 };
-
+/**
+ * @description Resetear al paso 1 si se denega el acceso a la camara
+ */
 const resetCreateGif = () => {
 	showElement(btnStart);
 	hiddenElement(btnPlay);
@@ -200,11 +232,15 @@ const resetCreateGif = () => {
 	steps[1].classList.remove('active');
 	steps[2].classList.remove('active');
 };
-
+/**
+ * @description Evento descargar gif
+ */
 const downloadGif = () => {
 	gif.downloadGif(true, btnActions[0].id);
 };
-
+/**
+ * @description Evento compartir link del gifo
+ */
 const shareGif = () => {
 	gif.shareGif(btnActions[1].id.replace('link-', ''));
 };

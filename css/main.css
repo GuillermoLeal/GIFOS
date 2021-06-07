@@ -150,6 +150,12 @@ body {
           flex-direction: column;
 }
 
+@media (max-width: 767px) {
+  .section-header {
+    padding: 15% 8%;
+  }
+}
+
 .header-search {
   padding: 5%;
 }
@@ -526,7 +532,6 @@ footer p {
 
 .content-social {
   width: 60%;
-  min-width: 375px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
